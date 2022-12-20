@@ -1,0 +1,5 @@
+package trabajadoresHerencia
+
+fun main() {
+
+}
