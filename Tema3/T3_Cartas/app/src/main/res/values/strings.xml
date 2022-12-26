@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">T3_Cartas</string>
+    <string name="boton_empezar">Empezar</string>
+    <string name="texto_hint">Intruce tu nombre</string>
 </resources>
