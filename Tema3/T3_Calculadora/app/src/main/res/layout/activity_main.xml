@@ -8,28 +8,27 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/texto_numeros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/texto_numeros"
-        android:textSize="@dimen/texto_normal"
         android:gravity="end"
         android:padding="@dimen/padding_texto"
-        />
+        android:textSize="@dimen/texto_normal" />
+
     <EditText
+        android:id="@+id/edit_numeros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_numeros"
+        android:background="@null"
+        android:gravity="end"
         android:padding="@dimen/padding_texto"
         android:text="0"
-        android:textSize="@dimen/texto_normal"
-        android:gravity="end"
-        android:background="@null"
-        />
+        android:textSize="@dimen/texto_normal" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/boton_borrar"
@@ -40,14 +39,14 @@
             android:insetBottom="0dp"
             android:padding="@dimen/padding_texto"
             android:text="DEL"
-            android:textSize="@dimen/padding_texto"
-            />
+            android:textSize="@dimen/padding_texto" />
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/boton_siete"
@@ -59,9 +58,7 @@
             android:insetBottom="0dp"
             android:padding="@dimen/padding_texto"
             android:text="7"
-            android:textSize="@dimen/texto_botones"
-            android:elevation="2dp"
-            android:stateListAnimator="@null"/>
+            android:textSize="@dimen/texto_botones" />
 
         <Button
             android:id="@+id/boton_ocho"
@@ -100,11 +97,11 @@
             android:textSize="@dimen/texto_botones" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/boton_cuatro"
@@ -155,11 +152,11 @@
             android:textSize="@dimen/texto_botones" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/boton_uno"
@@ -210,11 +207,11 @@
             android:textSize="@dimen/texto_botones" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/boton_punto"
@@ -265,8 +262,4 @@
             android:textSize="@dimen/texto_botones" />
 
     </LinearLayout>
-
-
-
-
 </LinearLayout>
