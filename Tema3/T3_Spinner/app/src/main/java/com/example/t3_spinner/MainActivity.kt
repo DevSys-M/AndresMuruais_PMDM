@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             var intent: Intent = Intent(applicationContext, DetailActivity::class.java);
             var bundle: Bundle = Bundle();
             bundle.putSerializable("equipo", adaptadorPais.getItem(binding.spinnerComplejo.selectedItemPosition))
+            startActivity(intent)
         }
     }
 
