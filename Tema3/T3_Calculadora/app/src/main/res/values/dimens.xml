@@ -3,4 +3,7 @@
     <dimen name="padding_texto">20dp</dimen>
     <dimen name="texto_normal">45sp</dimen>
     <dimen name="texto_botones">45sp</dimen>
+    <dimen name="padding_texto_land">10dp</dimen>
+    <dimen name="texto_normal_land">22sp</dimen>
+    <dimen name="texto_botones_land">22sp</dimen>
 </resources>
