@@ -19,18 +19,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     // private lateinit var  adapadtadorSimple: ArrayAdapter<CharSequence>
     private lateinit var arrayDatos: ArrayList<Pais>
     private lateinit var adaptadorPais: AdapterPais
-    //nuevo
+    /*
     lateinit var resultadoTexto: TextView;
     var numeroString:String= "2"
     var numeroNumero:Int= 2
-
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
-        //nuevo
+        /*
         resultadoTexto.text.toString().toInt() as Int
         numeroString.toInt()
 
         numeroNumero.toString()
-
+         */
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,12 +42,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         asociasDatos();
         rellenarLista();
         acciones();
-
-        var intent : Intent = Intent()
-        var bundle: Bundle = Bundle()
-        bundle.putSerializable("equipo",adaptadorPais.getItem(binding.spinnerComplejo.selectedItemPosition))
-
-
     }
 
     private fun acciones() {
