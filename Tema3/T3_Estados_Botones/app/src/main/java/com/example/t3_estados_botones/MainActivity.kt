@@ -97,4 +97,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextWatcher {
     override fun afterTextChanged(p0: Editable?) {
         Log.v("textoAfter", p0.toString())
     }
+
+    // Logcat-> package:com.example.t3_estados_botones
+
 }
