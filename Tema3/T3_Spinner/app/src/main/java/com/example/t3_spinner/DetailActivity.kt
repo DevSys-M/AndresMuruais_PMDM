@@ -21,8 +21,8 @@ class DetailActivity : AppCompatActivity() {
         // intent --> bundle --> dato
         var bundle = intent.extras
         var equipo: Pais =  bundle!!.getSerializable("equipo") as Pais
-        binding.textoTitulos.setText(equipo.getTitulos());
-        binding.estrellaDetalle.setText(equipo.getJugadorEstrella());
+        binding.textoTitulos.setText(equipo.getTitulos().toString())
+        binding.estrellaDetalle.setText(equipo.getJugadorEstrella())
         binding.nombreDetalle.setText(equipo.getNombre())
         binding.imagenDetalle.setImageResource(equipo.getImagen())
     }

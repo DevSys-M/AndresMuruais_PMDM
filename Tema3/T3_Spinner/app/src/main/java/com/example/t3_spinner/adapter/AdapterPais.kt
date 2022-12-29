@@ -12,7 +12,7 @@ import com.example.t3_spinner.model.Pais
 
 class AdapterPais(private var listaDatos: ArrayList<Pais>, private var contexto : Context): BaseAdapter() {
     override fun getCount(): Int {
-        //nuemro de filas  --> nº elementos en el **lista**
+        //numero de filas  --> nº elementos en el **lista**
         return listaDatos.size;
     }
 
