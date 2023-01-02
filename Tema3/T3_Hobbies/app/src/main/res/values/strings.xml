@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">T3_Hobbies</string>
+    <string-array name="spinner_recursos">
+        <item>Futbol</item>
+        <item>Series</item>
+        <item>Juegos</item>
+    </string-array>
 </resources>

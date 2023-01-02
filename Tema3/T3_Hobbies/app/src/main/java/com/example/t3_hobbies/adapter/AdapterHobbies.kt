@@ -10,17 +10,18 @@ import android.widget.TextView
 import com.example.t3_hobbies.R
 import com.example.t3_hobbies.model.Hobbies
 
-class AdapterHobbies(private var lista: ArrayList<Hobbies>,private var context: Context): BaseAdapter() {
+class AdapterHobbies(private var lista: ArrayList<Hobbies>, private var context: Context) :
+    BaseAdapter() {
     override fun getCount(): Int {
         return lista.size
     }
 
     override fun getItem(p0: Int): Any {
-       return lista.get(p0)
+        return lista.get(p0)
     }
 
     override fun getItemId(p0: Int): Long {
-       return p0.toLong()
+        return p0.toLong()
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
@@ -32,42 +33,40 @@ class AdapterHobbies(private var lista: ArrayList<Hobbies>,private var context: 
         var textoFilaNombre: TextView = view.findViewById(R.id.texto_fila_nombre)
         var textoFilaDetalle: TextView = view.findViewById(R.id.texto_fila_detalle)
 
-        if (hobbiesActual.categoria == "Futbol") {
-            if (hobbiesActual.nombre == "Messi") {
+        if (hobbiesActual.getCategoria() == "Futbol") {
+            if (hobbiesActual.getNombre() == "Messi") {
                 imagenFila.setImageResource(R.drawable.messi)
-            } else if (hobbiesActual.nombre == "Maradona") {
+            } else if (hobbiesActual.getNombre() == "Maradona") {
                 imagenFila.setImageResource(R.drawable.maradona)
-            } else if (hobbiesActual.nombre == "Ronaldo") {
+            } else if (hobbiesActual.getNombre() == "Ronaldo") {
                 imagenFila.setImageResource(R.drawable.ronaldo)
-            } else if (hobbiesActual.nombre == "Zidane") {
+            } else if (hobbiesActual.getNombre() == "Zidane") {
                 imagenFila.setImageResource(R.drawable.zidane)
             }
-        }
-        else if (hobbiesActual.categoria == "Juegos"){
-            if (hobbiesActual.nombre == "Metal Gear") {
+        } else if (hobbiesActual.getCategoria() == "Juegos") {
+            if (hobbiesActual.getNombre() == "Metal Gear") {
                 imagenFila.setImageResource(R.drawable.metal)
-            } else if (hobbiesActual.nombre == "Gran Turismo") {
+            } else if (hobbiesActual.getNombre() == "Gran Turismo") {
                 imagenFila.setImageResource(R.drawable.gt)
-            } else if (hobbiesActual.nombre == "God Of War") {
+            } else if (hobbiesActual.getNombre() == "God Of War") {
                 imagenFila.setImageResource(R.drawable.god)
-            } else if (hobbiesActual.nombre == "Final Fantasy X") {
+            } else if (hobbiesActual.getNombre() == "Final Fantasy X") {
                 imagenFila.setImageResource(R.drawable.ffx)
             }
-        }
-        else if (hobbiesActual.categoria == "Series"){
-            if (hobbiesActual.nombre == "Stranger Things") {
+        } else if (hobbiesActual.getCategoria() == "Series") {
+            if (hobbiesActual.getNombre() == "Stranger Things") {
                 imagenFila.setImageResource(R.drawable.stranger)
-            } else if (hobbiesActual.nombre == "Stranger Things") {
+            } else if (hobbiesActual.getNombre() == "Stranger Things") {
                 imagenFila.setImageResource(R.drawable.tronos)
-            } else if (hobbiesActual.nombre == "Lost") {
+            } else if (hobbiesActual.getNombre() == "Lost") {
                 imagenFila.setImageResource(R.drawable.lost)
-            } else if (hobbiesActual.nombre == "La casa de papel") {
+            } else if (hobbiesActual.getNombre() == "La casa de papel") {
                 imagenFila.setImageResource(R.drawable.papel)
             }
         }
 
-        textoFilaNombre.text = hobbiesActual.nombre;
-        textoFilaDetalle.text = hobbiesActual.detalle;
+        textoFilaNombre.text = hobbiesActual.getNombre();
+        textoFilaDetalle.text = hobbiesActual.getDetalle();
 
         return view;
     }
