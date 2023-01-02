@@ -57,7 +57,7 @@ class AdapterHobbies(private var lista: ArrayList<Hobbies>, private var context:
             if (hobbiesActual.getNombre() == "Stranger Things") {
                 imagenFila.setImageResource(R.drawable.stranger)
             } else if (hobbiesActual.getNombre() == "Stranger Things") {
-                imagenFila.setImageResource(R.drawable.tronos)
+                imagenFila.setImageResource(R.drawable.trono)
             } else if (hobbiesActual.getNombre() == "Lost") {
                 imagenFila.setImageResource(R.drawable.lost)
             } else if (hobbiesActual.getNombre() == "La casa de papel") {
