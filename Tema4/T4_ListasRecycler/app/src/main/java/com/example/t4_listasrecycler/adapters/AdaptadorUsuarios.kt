@@ -23,9 +23,19 @@ class AdaptadorUsuarios(var lista: ArrayList<Usuario>, var contexto: Context) :
         listener = contexto as OnRecyclerUsuarioListener
     }
 
+<<<<<<< HEAD
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         // xml aspecto de cada fila
         var vista: View = LayoutInflater.from(contexto).inflate(R.layout.item_recycler, parent,false)
+=======
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
+        var vista: View = LayoutInflater.from(contexto).inflate(
+            R.layout.item_recycler, parent,
+            false
+        ); // xml aspecto de cada fila
+>>>>>>> 284496ad2809cc69d87bcc43d39f566290d06be8
         return MyHolder(vista);
     }
 

@@ -35,7 +35,12 @@ class MainActivity : AppCompatActivity(), AdaptadorUsuarios.OnRecyclerUsuarioLis
         binding.listaRecycler.adapter = adaptadorUsuarios;
         // 3. poner un layout dentro del recycler --> Linear Grid
         binding.listaRecycler.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+<<<<<<< HEAD
         //binding.listaRecycler.layoutManager = GridLayoutManager(this,2, GridLayoutManager.VERTICAL, false)
+=======
+        //binding.listaRecycler.layoutManager = GridLayoutManager(this,2)
+
+>>>>>>> 284496ad2809cc69d87bcc43d39f566290d06be8
     }
 
     private fun instancias() {

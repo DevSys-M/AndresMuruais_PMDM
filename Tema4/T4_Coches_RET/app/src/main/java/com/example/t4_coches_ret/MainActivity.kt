@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var coches: ArrayList<Coche>
-    private lateinit var adapterCoche: AdaptadorCoche
+    private lateinit var adaptadorCoche: AdaptadorCoche
     private lateinit var precio: String
     private lateinit var marca: String
 
@@ -42,16 +42,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         coches = ArrayList();
 
         coches.add(Coche("Mercedes", "AMG GT", 500, 200000, "Deportivo", R.drawable.amggt))
-        coches.add(
-            Coche(
-                "Bentley",
-                "Continental",
-                400,
-                300000,
-                "Berlina deportivo",
-                R.drawable.continental
-            )
-        )
+        coches.add(Coche("Bentley", "Continental", 400, 300000, "Berlina deportivo", R.drawable.continental))
         coches.add(Coche("Jaguar", "FType", 300, 150000, "Deportivo", R.drawable.ftype))
         coches.add(Coche("Ford", "GT40", 500, 300000, "Deportivo clasico", R.drawable.gt40))
         coches.add(Coche("Nissan", "GTR", 300, 200000, "Deportivo", R.drawable.gtr))
@@ -61,28 +52,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         coches.add(Coche("McLaren", "MC600", 500, 450000, "Deportivo", R.drawable.mc600))
         coches.add(Coche("Toyota", "Supra", 300, 150000, "Deportivo", R.drawable.supra))
         coches.add(Coche("Porche", "Taycan", 350, 250000, "Deportivo", R.drawable.taycan))
-        var adapterCoche = AdaptadorCoche(this, coches)
-        adapterCoche.funcionComunicar =
+        adaptadorCoche = AdaptadorCoche(this, coches)
+        adaptadorCoche.funcionComunicar =
             { Snackbar.make(binding.root, it.precio.toString(), Snackbar.LENGTH_SHORT).show() }
-        binding.recycler.adapter = adapterCoche;
-        binding.recycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recycler.adapter = adaptadorCoche;
+        binding.recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         //binding.recycler.layoutManager = GridLayoutManager(this, 2);
-
-
-        binding.spinnerMarca.adapter = ArrayAdapter.createFromResource(
-            applicationContext,
-            R.array.lista_marcas, android.R.layout.simple_spinner_item
-        )
+        binding.spinnerMarca.adapter = ArrayAdapter.createFromResource(applicationContext, R.array.lista_marcas, android.R.layout.simple_spinner_item)
         (binding.spinnerMarca.adapter as ArrayAdapter<CharSequence>).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        binding.spinnerPrecio.adapter = ArrayAdapter.createFromResource(
-            applicationContext,
-            R.array.lista_precios, android.R.layout.simple_spinner_item
-        )
-        (binding.spinnerPrecio.adapter as ArrayAdapter<CharSequence>).setDropDownViewResource(
-            android.R.layout.simple_spinner_dropdown_item
-        )
+        binding.spinnerPrecio.adapter = ArrayAdapter.createFromResource(applicationContext, R.array.lista_precios, android.R.layout.simple_spinner_item)
+        (binding.spinnerPrecio.adapter as ArrayAdapter<CharSequence>).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.spinnerMarca.onItemSelectedListener = this
         binding.spinnerPrecio.onItemSelectedListener = this
@@ -97,27 +77,27 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 // "Hasta 300000"
                 when (p2) {
                     0 -> {
-                        adapterCoche.cambiarLista(coches)
+                        adaptadorCoche.cambiarLista(coches)
                     }
                     1 -> {
                         // hasta 100000
                         // de la lista de coche que esta en el spinner saco los que valen hasta 100mil
-                        adapterCoche.cambiarLista(adapterCoche.lista.filter { it.precio <= 100000 } as ArrayList<Coche>)
+                        adaptadorCoche.cambiarLista(adaptadorCoche.lista.filter { it.precio <= 100000 } as ArrayList<Coche>)
                     }
                     2 -> {
-                        adapterCoche.cambiarLista(adapterCoche.lista.filter { it.precio <= 200000 } as ArrayList<Coche>)
+                        adaptadorCoche.cambiarLista(adaptadorCoche.lista.filter { it.precio <= 200000 } as ArrayList<Coche>)
 
                     }
                     3 -> {
-                        adapterCoche.cambiarLista(adapterCoche.lista.filter { it.precio <= 300000 } as ArrayList<Coche>)
+                        adaptadorCoche.cambiarLista(adaptadorCoche.lista.filter { it.precio <= 300000 } as ArrayList<Coche>)
 
                     }
                     4 -> {
-                        adapterCoche.cambiarLista(adapterCoche.lista.filter { it.precio <= 400000 } as ArrayList<Coche>)
+                        adaptadorCoche.cambiarLista(adaptadorCoche.lista.filter { it.precio <= 400000 } as ArrayList<Coche>)
 
                     }
                     5 -> {
-                        adapterCoche.cambiarLista(adapterCoche.lista.filter { it.precio >= 500000 } as ArrayList<Coche>)
+                        adaptadorCoche.cambiarLista(adaptadorCoche.lista.filter { it.precio >= 500000 } as ArrayList<Coche>)
 
                     }
                 }
@@ -127,12 +107,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 //Log.v("marca", marca)
                 // método filter da una lista ya filtrada sobre una condicion
                 if (marca.equals("todos", true)) {
-                    adapterCoche.cambiarLista(coches)
+                    adaptadorCoche.cambiarLista(coches)
                 } else {
-                    adapterCoche.cambiarLista(coches.filter { it.marca == marca } as ArrayList)
+                    adaptadorCoche.cambiarLista(coches.filter { it.marca == marca } as ArrayList)
                 }
-
-
             }
         }
     }
