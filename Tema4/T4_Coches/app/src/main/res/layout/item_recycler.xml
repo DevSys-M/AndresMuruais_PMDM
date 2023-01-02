@@ -23,6 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/black"
+        android:alpha="0.5"
         app:layout_constraintBottom_toBottomOf="@+id/imagen_holder"
         app:layout_constraintEnd_toEndOf="parent">
         <TextView
@@ -44,7 +46,6 @@
             android:layout_weight="0.5"
             android:text="detalle"
             android:backgroundTint="@color/black"
-            android:alpha="0.5"
             app:layout_constraintBottom_toBottomOf="@+id/imagen_holder"
             app:layout_constraintEnd_toEndOf="parent" />
 
