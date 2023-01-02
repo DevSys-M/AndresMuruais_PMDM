@@ -14,12 +14,12 @@ import com.google.android.material.snackbar.Snackbar
 
 class AdaptadorRecycler(var context: Context,var lista: ArrayList<Usuarios>) :RecyclerView.Adapter<AdaptadorRecycler.MyHolder>()  {
 
-    // 2. creo un onket de la interfaz para poder utilizarlo
-    private lateinit var listener: OnRecyclerUsusarioListener
+    // 2. creo un objeto de la interfaz para poder utilizarlo
+    private lateinit var listener: OnRecyclerUsuarioListener
 
     init {
-        //OnRecyclerUsusarioListener
-        listener = context as OnRecyclerUsusarioListener
+        // OnRecyclerUsuarioListener =  OnRecyclerUsuarioListener
+        listener = context as OnRecyclerUsuarioListener
     }
 
     //objeto de clase
@@ -42,6 +42,7 @@ class AdaptadorRecycler(var context: Context,var lista: ArrayList<Usuarios>) :Re
             listener.comunicarUsuarioSelected(usuarioFila)
 
         }
+        //holder.nombre.setOnLongClickListener(this)
         holder.nombre.setOnLongClickListener {
             //3.Utilizo el metodo de la interfaz
             listener.comunicarUsuarioSelected(usuarioFila,position)
@@ -52,9 +53,8 @@ class AdaptadorRecycler(var context: Context,var lista: ArrayList<Usuarios>) :Re
         holder.correo.setOnClickListener{
             Snackbar.make(holder.nombre,"Pulsado correo",Snackbar.LENGTH_SHORT).show()
         }
-
-        /*
-        usuariosFila.appellido
+        // boton.setOnClick()-->cambiar de pantalla
+        /* usuariosFila.appellido
         usuariosFila.nombre
         usuariosFila.correo
          */
@@ -64,9 +64,9 @@ class AdaptadorRecycler(var context: Context,var lista: ArrayList<Usuarios>) :Re
         return  lista.size
     }
     // Interfaz de Kolvak
-    //1.Interzaz holter origen de los datos creo una interfaz
+    //1.Origen de los datos creo una interfaz
 
-    interface OnRecyclerUsusarioListener{
+    interface OnRecyclerUsuarioListener{
         fun comunicarUsuarioSelected(usuario: Usuarios)
         fun comunicarUsuarioSelected(usuario: Usuarios, posicion: Int)
     }

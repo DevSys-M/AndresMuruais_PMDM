@@ -1,90 +1,61 @@
 package com.example.t4_listasholder
 
-import android.content.Context
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.t4_listasholder.adapter.AdaptadorRecycler
+import com.example.t4_listasholder.databinding.ActivityMainBinding
 import com.example.t4_listasholder.model.Usuarios
 import com.google.android.material.snackbar.Snackbar
 
-class AdaptadorRecycler(var context: Context, var lista: ArrayList<Usuarios>) : RecyclerView.Adapter<AdaptadorRecycler.MyHolder>()  {
+//4. En le destino de los datos implementar la interfaz
+class MainActivity : AppCompatActivity(), AdaptadorRecycler.OnRecyclerUsuarioListener {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var listaUsuarios: ArrayList<Usuarios>
+    private lateinit var adaptadorRecycler:AdaptadorRecycler
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding  = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        instancias()
 
-    // 2. creo un onket de la interfaz para poder utilizarlo
-    private lateinit var listener: OnRecyclerUsusarioListener
-
-    init {
-        //OnRecyclerUsusarioListener
-        listener = context as OnRecyclerUsusarioListener
     }
 
-    //objeto de clase
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
-        var view: View = LayoutInflater.from(context).inflate(R.layout.item_recycler,parent,false)
-        var holder = MyHolder(view);
-        return holder
-    }
-    //objeto de patron
-    override fun onBindViewHolder(holder: MyHolder, position: Int) {
 
-        //personaliza cada una de las filas -> holder
-        var usuarioFila = lista.get(position);
-        holder.nombre.setText(usuarioFila.nombre)
-        holder.apellido.setText(usuarioFila.appellido)
-        holder.correo.setText(usuarioFila.correo)
-        holder.nombre.setOnClickListener{
-            //Snackbar.make(holder.nombre,"Pulsado nombre ${usuarioFila.nombre}",Snackbar.LENGTH_SHORT).show()
-            //3.Utilizo el metodo de la interfaz
-            listener.comunicarUsuarioSelected(usuarioFila)
 
-        }
-        holder.nombre.setOnLongClickListener {
-            //3.Utilizo el metodo de la interfaz
-            listener.comunicarUsuarioSelected(usuarioFila,position)
-            return@setOnLongClickListener true }
-        holder.apellido.setOnClickListener{
-            Snackbar.make(holder.nombre,"Pulsado apellido", Snackbar.LENGTH_SHORT).show()
-        }
-        holder.correo.setOnClickListener{
-            Snackbar.make(holder.nombre,"Pulsado correo", Snackbar.LENGTH_SHORT).show()
+    private fun instancias() {
+        listaUsuarios= ArrayList()
+        listaUsuarios.add(Usuarios("Borja","Martin","correo@retamar.es",25))
+        listaUsuarios.add(Usuarios("Juan","Gomez","correo@retamar.es",30))
+        listaUsuarios.add(Usuarios("Gonzalo","Fernandez","correo@retamar.es",44))
+        listaUsuarios.add(Usuarios("Pedro","Lopez","correo@retamar.es",26))
+        listaUsuarios.add(Usuarios("Celia","Martin","correo@retamar.es",45))
+        adaptadorRecycler = AdaptadorRecycler(this,listaUsuarios)
+        binding.listaRecycler.adapter = adaptadorRecycler
+        binding.listaRecycler.layoutManager = LinearLayoutManager(applicationContext,
+            LinearLayoutManager.HORIZONTAL,false)
+        // binding.listaRecycler.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
+        //binding.listaRecycler.layoutManager =  GridLayoutManager(applicationContext, 2,GridLayoutManager.VERTICAL, false)
+
+
+        binding.botonAdd.setOnClickListener {
+            listaUsuarios.add(Usuarios(binding.textoNombre.text.toString(),binding.textoApellido.text.toString(),binding.textoCorreo.text.toString(),0))
+            //adaptadorRecycler.notifyDataSetChanged()
+            adaptadorRecycler.notifyItemInserted(listaUsuarios.size-1);
         }
 
-        /*
-        usuariosFila.appellido
-        usuariosFila.nombre
-        usuariosFila.correo
-         */
+        //Meter por nombre apellido correo
+        // Crear boton crea un elemento dentro de la lista
     }
 
-    override fun getItemCount(): Int {
-        return  lista.size
-    }
-    // Interfaz de Kolvak
-    //1.Interfaz holter origen de los datos creo una interfaz
-
-    interface OnRecyclerUsusarioListener{
-        fun comunicarUsuarioSelected(usuario: Usuarios)
-        fun comunicarUsuarioSelected(usuario: Usuarios, posicion: Int)
+    override fun comunicarUsuarioSelected(usuario: Usuarios) {
+        // Utilizar los datos
+        Snackbar.make(binding.listaRecycler,"Comunicado ${usuario.nombre}",Snackbar.LENGTH_SHORT).show()
     }
 
-
-    //primero clase adinada
-    inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        var nombre: TextView;
-        var correo: TextView;
-        var apellido: TextView;
-
-        init {
-            nombre = itemView.findViewById(R.id.nombre_fila)
-            apellido = itemView.findViewById(R.id.apellido_fila)
-            correo = itemView.findViewById(R.id.correo_fila)
-
-        }
-
+    override fun comunicarUsuarioSelected(usuario: Usuarios, posicion: Int) {
+        // Utilizar los datos
+        Snackbar.make(binding.listaRecycler,"Comunicado ${usuario.nombre} en posicion {$posicion}",Snackbar.LENGTH_SHORT).show()
     }
-
 }
