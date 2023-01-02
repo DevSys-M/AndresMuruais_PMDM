@@ -3,6 +3,7 @@ package com.example.t4_listasholder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t4_listasholder.adapter.AdaptadorRecycler
 import com.example.t4_listasholder.databinding.ActivityMainBinding
@@ -33,10 +34,9 @@ class MainActivity : AppCompatActivity(), AdaptadorRecycler.OnRecyclerUsuarioLis
         listaUsuarios.add(Usuarios("Celia","Martin","correo@retamar.es",45))
         adaptadorRecycler = AdaptadorRecycler(this,listaUsuarios)
         binding.listaRecycler.adapter = adaptadorRecycler
-        binding.listaRecycler.layoutManager = LinearLayoutManager(applicationContext,
-            LinearLayoutManager.HORIZONTAL,false)
+        //binding.listaRecycler.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL,false)
         // binding.listaRecycler.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
-        //binding.listaRecycler.layoutManager =  GridLayoutManager(applicationContext, 2,GridLayoutManager.VERTICAL, false)
+        binding.listaRecycler.layoutManager =  GridLayoutManager(applicationContext, 2,GridLayoutManager.VERTICAL, false)
 
 
         binding.botonAdd.setOnClickListener {
