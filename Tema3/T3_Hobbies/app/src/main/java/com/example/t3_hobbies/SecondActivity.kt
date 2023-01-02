@@ -51,7 +51,7 @@ class SecondActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         listaHobbies.add(Hobbies("Gran Turismo", "Coches", R.drawable.gt,"Juegos"))
         listaHobbies.add(Hobbies("God Of War", "Plataformas", R.drawable.god,"Juegos"))
         listaHobbies.add(Hobbies("Final Fantasy X", "Rol", R.drawable.ffx,"Juegos"))
-        listaHobbies.add(Hobbies("Stranger Things", "Fantastica", R.drawable.stranger,"Series"))
+        listaHobbies.add(Hobbies("Stranger Things", "Fantastica", R.drawable.tronos,"Series"))
         listaHobbies.add(Hobbies("Juego de tronos", "Histórica", R.drawable.tronos,"Series"))
         listaHobbies.add(Hobbies("Lost", "Fantastica", R.drawable.lost,"Series"))
         listaHobbies.add(Hobbies("La casa de papel", "Accion", R.drawable.papel,"Series"))
