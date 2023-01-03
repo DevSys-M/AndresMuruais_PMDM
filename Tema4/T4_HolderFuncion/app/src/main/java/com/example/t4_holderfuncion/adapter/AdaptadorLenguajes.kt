@@ -52,7 +52,4 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>) :
         return listaDatos.size
     }
 
-    interface OnLenguajeListener{
-        fun onLenguajeClick(lenguaje: Lenguaje)
-    }
 }
