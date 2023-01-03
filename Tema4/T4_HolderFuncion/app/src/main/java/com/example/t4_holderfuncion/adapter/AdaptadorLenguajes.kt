@@ -18,7 +18,7 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>) :
     var onLenguajeClick: ((lenguaje: Lenguaje)-> Unit)? = null
     /*
     Como se puede ver, en la creación de la variable lenguajeClick se define que es de tipo función, recibiendo por parámetros un objeto de tipo Lenguaje y no devolviendo nada (Unit).
-    Más adelante en el método init se configura un listener de click a la imagen y se utiliza el método invoke (ya que se ha declarado como null, recordad el nullsafaty) y se pasa como parámetro el lenguaje que está en la posición que indica el adaptador
+    Más adelante en el método init se configura un listener de click a la imagen y se utiliza el método invoke (ya que se ha declarado como null, recordad el nullsafety) y se pasa como parámetro el lenguaje que está en la posición que indica el adaptador
      */
 
     inner class MyHolder(var view: View) : RecyclerView.ViewHolder(view) {
@@ -51,5 +51,6 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>) :
     override fun getItemCount(): Int {
         return listaDatos.size
     }
+
 
 }

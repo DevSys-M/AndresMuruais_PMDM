@@ -1,14 +1,17 @@
 package com.example.t4_holderfuncion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t4_holderfuncion.adapter.AdaptadorLenguajes
 import com.example.t4_holderfuncion.databinding.ActivityMainBinding
 import com.example.t4_holderfuncion.model.Lenguaje
+import com.google.android.material.snackbar.Snackbar
 
 /*
 Por último en el MainActivity no sería necesario implementar nada
@@ -31,8 +34,23 @@ class MainActivity : AppCompatActivity(){
     //la función creada en el adaptador es llamada, teniendo como parámetros el lenguaje que ha sido seleccionado en el listado.
     private fun acciones() {
         adaptadorLenguaje.onLenguajeClick = { lenguaje ->
+            var snackbar: Snackbar = Snackbar.make(
+                binding.recyclerLenguajes,
+                "¿Quieres ver los datalles?",
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.setAction("ok", View.OnClickListener { view: View ->
+                var intent = Intent(this, DetailActivity::class.java)
+                intent.putExtra("lenguaje", lenguaje);
+                startActivity(intent)
+            })
+            snackbar.show();
+        }
+        /*
+        adaptadorLenguaje.onLenguajeClick = { lenguaje ->
             Log.v("prueba", lenguaje.nombre)
         }
+         */
     }
 
     private fun configurarRecycler() {
