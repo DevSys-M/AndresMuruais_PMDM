@@ -20,6 +20,9 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>) :
     Como se puede ver, en la creación de la variable lenguajeClick se define que es de tipo función, recibiendo por parámetros un objeto de tipo Lenguaje y no devolviendo nada (Unit).
     Más adelante en el método init se configura un listener de click a la imagen y se utiliza el método invoke (ya que se ha declarado como null, recordad el nullsafety) y se pasa como parámetro el lenguaje que está en la posición que indica el adaptador
      */
+    //TODO BOTONES
+    //creación de la variable función
+    var onNombreLongClick: ((posicion: Int)-> Unit)? = null
 
     inner class MyHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
@@ -30,6 +33,11 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>) :
             nombre = view.findViewById(R.id.nombre_item)
             imagen = view.findViewById(R.id.imagen_item)
             imagen.setOnClickListener { onLenguajeClick?.invoke(listaDatos.get(adapterPosition) as Lenguaje) }
+            //TODO BOTONES
+            nombre.setOnLongClickListener({ view: View ->
+                onNombreLongClick?.invoke(adapterPosition)
+                return@setOnLongClickListener true
+            })
         }
 
     }

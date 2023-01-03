@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity(){
         rellenarDatos()
         configurarRecycler()
         acciones()
+        //TODO BOTONES
+        //Un botón en MainActivity que al ser pulsado agregará un lenguaje por defecto a la lista de ya existentes (y por lo tanto se agregará al recycler)
+        //Que tras una pulsación larga en el nombre del lenguaje de la lista, aparezca una snackbar preguntando si queremos eliminar el lenguaje de la lista.
     }
     //Como se puede ver en el método acciones
     //la función creada en el adaptador es llamada, teniendo como parámetros el lenguaje que ha sido seleccionado en el listado.
@@ -46,6 +49,25 @@ class MainActivity : AppCompatActivity(){
             })
             snackbar.show();
         }
+        //TODO BOTONES 1
+        binding.buttonAgregar.setOnClickListener {
+            var lenguaje: Lenguaje =
+                Lenguaje("Por Defecto", 1.0, "detalle del lenguaje por defecto", 0)
+            arrayLenguajes.add(lenguaje);
+            //adaptadorLenguaje.notifyDataSetChanged()
+            /*
+            Con esto sería suficiente para poder añadir elementos al recyclerview.
+            Sin embargo el método notifyDataSetChanged es demasiado potente, ya que notifica un cambio estructural de todos los elementos.
+            Podríamos detectar la posición del cambio e indicar al método que elemento ha cambiado, siendo esta caso el último
+             */
+            adaptadorLenguaje.notifyItemInserted(arrayLenguajes.size-1)
+            // En este caso se ha hecho desde la clase MainActivity, pero también se podría haber hecho un método en el adaptador y ser llamado desde la clase MainActivity
+        }
+        //TODO BOTONES 2
+        adaptadorLenguaje.onNombreLongClick = { posicion ->
+            arrayLenguajes.removeAt(posicion)
+            adaptadorLenguaje.notifyItemRemoved(posicion)
+        }
         /*
         adaptadorLenguaje.onLenguajeClick = { lenguaje ->
             Log.v("prueba", lenguaje.nombre)
@@ -55,7 +77,7 @@ class MainActivity : AppCompatActivity(){
 
     private fun configurarRecycler() {
         binding.recyclerLenguajes.adapter = adaptadorLenguaje
-        binding.recyclerLenguajes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        binding.recyclerLenguajes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerLenguajes.addItemDecoration(
             DividerItemDecoration(
                 this,
