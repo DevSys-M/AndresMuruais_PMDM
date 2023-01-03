@@ -3,10 +3,12 @@ package com.example.t4_holderinterfaz
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.*
 import com.example.t4_holderinterfaz.adapter.AdaptadorLenguajes
 import com.example.t4_holderinterfaz.databinding.ActivityMainBinding
 import com.example.t4_holderinterfaz.model.Lenguaje
+import com.google.android.material.snackbar.Snackbar
 
 //TODO EVENTO 3
 //Por último se implementa la interfaz en la activity (destino de los datos, obligando así a tener que sobreescribir el método en dicha clase y por lo tanto el item que se ha pulsado estará disponible en la clase destino
@@ -33,7 +35,16 @@ class MainActivity : AppCompatActivity(), AdaptadorLenguajes.OnLenguajeListener 
     private fun acciones() {
         /*
         adaptadorLenguaje.onLenguajeClick = { lenguaje ->
-            Log.v("prueba", lenguaje.nombre)
+            var snackbar: Snackbar = Snackbar.make(
+                findViewById(R.id.recycler_lenguajes),
+                "¿Quieres ver los dataller?",
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.setAction("ok", View.OnClickListener { view: View ->
+
+            })
+
+            snackbar.show();
         }
          */
     }

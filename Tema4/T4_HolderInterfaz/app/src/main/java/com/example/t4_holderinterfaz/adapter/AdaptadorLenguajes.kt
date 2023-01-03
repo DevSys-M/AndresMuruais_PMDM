@@ -26,10 +26,6 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>):
         //1.En el fichero adaptador (origen de los datos) es necesario crear una interfaz con un método que reciba por parámetros el dato que se quiere enviar a la activity
         private lateinit var listener: OnLenguajeListener
 
-        interface OnLenguajeListener{
-            fun onLenguajeClick(lenguaje: Lenguaje)
-        }
-
 
     // recibe por parámetros un ViewGroup (que es el conjunto de vistas donde se representarán los elementos) y un viewType (por si hay diferentes tipos de vistas). Deberá retornar un objeto de la clase anidada, para lo cual necesita la vista que se creo anteriormente y para lo cual se utiliza un objeto de tipo LayoutInflater para podre obtenerla
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -83,12 +79,19 @@ class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>):
         init {
             nombre = view.findViewById(R.id.nombre_item)
             imagen = view.findViewById(R.id.imagen_item)
-            listener = contexto as OnLenguajeListener;
+
+            listener = contexto as OnLenguajeListener
+
             //Esta igualdad es posible porque en los siguientes pasos se va a implementar la interfaz en la activity, por lo que serían del mismo tipo gracias al polimorfismo
             //Por último antes de acabar este paso se tendría que configurar el listener en la imagen, para que cuando sea pulsada se ejecute el método de la interfaz, pasando por parámetros los datos que se quiere comunicar. Esto se puede hacer tanto en el método onBindViewHolder como en el método init
             imagen.setOnClickListener { listener.onLenguajeClick(listaDatos.get(adapterPosition) as Lenguaje) }
         }
 
     }
+    //TODO EVENTOS 2
+    interface OnLenguajeListener{
+        fun onLenguajeClick(lenguaje: Lenguaje)
+    }
+
 
 }

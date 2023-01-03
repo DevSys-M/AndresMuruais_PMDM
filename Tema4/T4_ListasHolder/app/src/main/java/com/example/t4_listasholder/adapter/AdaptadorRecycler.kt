@@ -54,9 +54,10 @@ class AdaptadorRecycler(var context: Context,var lista: ArrayList<Usuarios>) :Re
             Snackbar.make(holder.nombre,"Pulsado correo",Snackbar.LENGTH_SHORT).show()
         }
         // boton.setOnClick()-->cambiar de pantalla
-        /* usuariosFila.appellido
-        usuariosFila.nombre
-        usuariosFila.correo
+        /*
+            usuariosFila.appellido
+            usuariosFila.nombre
+            usuariosFila.correo
          */
     }
 
