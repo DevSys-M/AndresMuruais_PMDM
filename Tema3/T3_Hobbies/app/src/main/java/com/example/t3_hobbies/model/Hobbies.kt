@@ -1,10 +1,9 @@
 package com.example.t3_hobbies.model
 
-import java.io.Serializable
 
-class Hobbies(private var nombre: String,private var detalle: String,private var imagen: Int,private var categoria: String): Serializable {
+class Hobbies(private var nombre: String,private var detalle: String,private var imagen: Int,private var categoria: String) {
 
-    fun getNombre(): String{
+   fun getNombre(): String{
         return this.nombre
     }
     fun getDetalle(): String{
@@ -16,6 +15,5 @@ class Hobbies(private var nombre: String,private var detalle: String,private var
     fun getCategoria(): String{
         return this.categoria
     }
-    
 
 }
