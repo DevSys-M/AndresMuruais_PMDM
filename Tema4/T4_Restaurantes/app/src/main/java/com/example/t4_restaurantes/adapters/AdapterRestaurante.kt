@@ -9,9 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.t4_restaurantes.R
 import com.example.t4_restaurantes.model.Restaurante
+import com.google.android.material.snackbar.Snackbar
 
-class AdapterRestaurante(var context: Context,var lista: ArrayList<Restaurante>): RecyclerView.Adapter<AdapterRestaurante.MyHolder>() {
+class AdapterRestaurante(var context: Context, var lista: ArrayList<Restaurante>) :
+    RecyclerView.Adapter<AdapterRestaurante.MyHolder>() {
 
+    fun cambiarLista(listaNueva: ArrayList<Restaurante>){
+        this.lista = listaNueva;
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
@@ -23,13 +29,22 @@ class AdapterRestaurante(var context: Context,var lista: ArrayList<Restaurante>)
         holder.imagen.setImageResource(restaurante.imagen)
         holder.nombre.setText(restaurante.nombre)
         holder.puntuacion.setText("Puntuacion: " + restaurante.valoracion)
+
+        holder.imagen.setOnClickListener {
+            Snackbar.make(
+                holder.imagen,
+                "El telefono es: ${(lista.get(position)).telefono.toString()}",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun getItemCount(): Int {
-       return lista.size
+        return lista.size
     }
 
-    inner class MyHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+
+    inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imagen: ImageView
         var nombre: TextView
         var puntuacion: TextView
@@ -37,7 +52,7 @@ class AdapterRestaurante(var context: Context,var lista: ArrayList<Restaurante>)
         init {
             imagen = itemView.findViewById(R.id.imagen_holder)
             nombre = itemView.findViewById(R.id.nombre_holder)
-            puntuacion= itemView.findViewById(R.id.puntuacion_holder)
+            puntuacion = itemView.findViewById(R.id.puntuacion_holder)
         }
 
     }
