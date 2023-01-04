@@ -13,12 +13,7 @@ import com.example.t4_coches.model.Coche
 
 class AdaptadorCoche(var context: Context, var lista: ArrayList<Coche>): RecyclerView.Adapter<AdaptadorCoche.MyHolder>() {
 
-    //1a. Creo un objeto de la interfaz para poder utilizarlo
-
-    /*
-    Otra forma de hacerlo también es declarando una función en vez de una interfaz en el adaptador, de forma que estará disponible desde el objeto adaptador de la clase MainActivity
-     */
-    //1b. Funciones vacías: en el origen de los datos crear una variable de tipo funcion
+    var onCocheOnClick: ((coche: Coche)->Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
@@ -30,13 +25,18 @@ class AdaptadorCoche(var context: Context, var lista: ArrayList<Coche>): Recycle
         holder.modelo.text= coche.modelo
         holder.imagen.setImageResource(coche.imagen)
         holder.boton.setOnClickListener {
-
+            onCocheOnClick?.invoke(coche)
         }
     }
 
     override fun getItemCount(): Int {
         return lista.size
 
+    }
+    //creo metodo en el adaptador para actualizar lista
+    fun cambiarLista(listaNueva: ArrayList<Coche>){
+        this.lista = listaNueva;
+        notifyDataSetChanged()
     }
 
     //Clase anidada MyHolder item:recycler.xml
@@ -49,6 +49,7 @@ class AdaptadorCoche(var context: Context, var lista: ArrayList<Coche>): Recycle
             imagen = itemView.findViewById(R.id.imagen_holder)
             modelo = itemView.findViewById(R.id.texto_holder)
             boton = itemView.findViewById(R.id.boton_detalle_holder)
+
         }
     }
 
