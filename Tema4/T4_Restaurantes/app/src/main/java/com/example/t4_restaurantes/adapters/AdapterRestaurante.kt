@@ -14,10 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 class AdapterRestaurante(var context: Context, var lista: ArrayList<Restaurante>) :
     RecyclerView.Adapter<AdapterRestaurante.MyHolder>() {
 
-    fun cambiarLista(listaNueva: ArrayList<Restaurante>){
-        this.lista = listaNueva;
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
@@ -42,7 +38,6 @@ class AdapterRestaurante(var context: Context, var lista: ArrayList<Restaurante>
     override fun getItemCount(): Int {
         return lista.size
     }
-
 
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imagen: ImageView

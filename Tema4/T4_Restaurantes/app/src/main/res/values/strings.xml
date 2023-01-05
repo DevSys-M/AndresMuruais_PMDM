@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">T4_Restaurantes</string>
     <string-array name="lista_valoracion">
+        <item>Todos</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
