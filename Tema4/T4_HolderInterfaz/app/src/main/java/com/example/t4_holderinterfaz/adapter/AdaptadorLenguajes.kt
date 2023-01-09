@@ -15,12 +15,13 @@ import com.google.android.material.snackbar.Snackbar
 // clase se un adaptador válido para un recyclerView es necesario que implemente la interfaz de RecyclerView.Adapter (la cual tiene una personalización de datos con una clase anidada que actua como holder)
 class AdaptadorLenguajes(var contexto: Context, var listaDatos: List<*>):
     RecyclerView.Adapter<AdaptadorLenguajes.MyHolder>() {
+
     /*
-     Al haber implementado una interfaz, la clase está obligada a utilizar todos los métodos que no tienen definición que son los siguientes:
-            getItemCount(): encargado de retornar cuantos elementos se deben pintar dentro de la lista. Por defecto se retornará el tamaño de la lista pasada en constructor, ya que son los datos que se quieren representar
-            onCreateViewHolder(): es el método encargado de crear un objeto de la clase anidada, pasando por constructor la vista o xml que tendrá la fila. Este retorno será el que utilice el método siguiente para poder pintar cada uno de los objetos correspondientes.
-            onBindViewHolder(): encargado de representar en cada una de las filas obtenidas del método anterior (holder) el objeto que corresponda.
-     */
+         Al haber implementado una interfaz, la clase está obligada a utilizar todos los métodos que no tienen definición que son los siguientes:
+                getItemCount(): encargado de retornar cuantos elementos se deben pintar dentro de la lista. Por defecto se retornará el tamaño de la lista pasada en constructor, ya que son los datos que se quieren representar
+                onCreateViewHolder(): es el método encargado de crear un objeto de la clase anidada, pasando por constructor la vista o xml que tendrá la fila. Este retorno será el que utilice el método siguiente para poder pintar cada uno de los objetos correspondientes.
+                onBindViewHolder(): encargado de representar en cada una de las filas obtenidas del método anterior (holder) el objeto que corresponda.
+         */
         //TODO EVENTOS 2
         //el dato pueda llevarse a la actividad donde está declarado el recycler.
         //1.En el fichero adaptador (origen de los datos) es necesario crear una interfaz con un método que reciba por parámetros el dato que se quiere enviar a la activity
