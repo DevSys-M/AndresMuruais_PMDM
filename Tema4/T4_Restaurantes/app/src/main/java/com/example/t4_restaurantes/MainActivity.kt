@@ -138,7 +138,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 else{
                     listaRestaurantesPasar = listaRestaurantes.filter { it.tipoComida == tipoComida } as ArrayList<Restaurante> }
             }
-
         }
     }
     override fun onNothingSelected(p0: AdapterView<*>?) {

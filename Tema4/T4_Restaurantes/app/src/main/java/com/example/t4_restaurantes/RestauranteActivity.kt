@@ -24,7 +24,6 @@ class RestauranteActivity : AppCompatActivity() {
         asociarDatos()
     }
 
-
     private fun asociarDatos() {
        binding.recycler.adapter= adaptadorRestaurante
     }
@@ -36,7 +35,6 @@ class RestauranteActivity : AppCompatActivity() {
 
     private fun instancias() {
         binding.recycler.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-
 
     }
 }
