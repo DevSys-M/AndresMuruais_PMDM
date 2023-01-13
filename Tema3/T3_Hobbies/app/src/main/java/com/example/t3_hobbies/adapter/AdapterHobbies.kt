@@ -16,7 +16,7 @@ class AdapterHobbies(private var lista: ArrayList<Hobbies>, private var context:
         return lista.size
     }
 
-    override fun getItem(p0: Int): Any {
+    override fun getItem(p0: Int): Hobbies {
         return lista.get(p0)
     }
 

@@ -29,14 +29,10 @@ class SecondActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun acciones() {
         binding.spinnerSimple.onItemSelectedListener = this
-
         binding.listaHobbies.setOnItemClickListener { adapterView, view, i, l ->
-            binding.textoNombre.setText( adaptadorLista.getItem(i).toString())
-            /*
             binding.textoNombre.setText( adaptadorLista.getItem(i).getNombre())
             binding.textoDetalle.setText(adaptadorLista.getItem(i).getDetalle())
             binding.imagenHobbie.setImageResource(adaptadorLista.getItem(i).getImagen())
-             */
         }
 
     }

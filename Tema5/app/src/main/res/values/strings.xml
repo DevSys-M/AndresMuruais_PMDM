@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">T5_Dialogos</string>
+    <string name="titulo_dialogo_confirm">Continuar</string>
 </resources>

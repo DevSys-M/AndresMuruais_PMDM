@@ -33,20 +33,7 @@ class MainActivity : AppCompatActivity(), AdaptadorLenguajes.OnLenguajeListener 
     }
 
     private fun acciones() {
-        /*
-        adaptadorLenguaje.onLenguajeClick = { lenguaje ->
-            var snackbar: Snackbar = Snackbar.make(
-                findViewById(R.id.recycler_lenguajes),
-                "¿Quieres ver los dataller?",
-                Snackbar.LENGTH_SHORT
-            )
-            snackbar.setAction("ok", View.OnClickListener { view: View ->
 
-            })
-
-            snackbar.show();
-        }
-         */
     }
 
     private fun rellenarDatos() {
