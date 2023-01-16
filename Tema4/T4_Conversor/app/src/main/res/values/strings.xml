@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">T4_Conversor</string>
+    <string-array name="array_monedas">
+        <item>euro</item>
+        <item>dolar</item>
+        <item>libra</item>
+    </string-array>
 </resources>
