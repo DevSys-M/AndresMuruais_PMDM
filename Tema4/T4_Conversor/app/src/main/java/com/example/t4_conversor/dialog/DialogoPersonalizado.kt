@@ -9,31 +9,34 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.example.t4_conversor.Moneda
 import com.example.t4_conversor.R
 import com.google.android.material.snackbar.Snackbar
 
 class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListener {
 
-    lateinit var vista: View;
-    lateinit var spinnerOrigen: Spinner
-    lateinit var adaptadorOrigen: ArrayAdapter<CharSequence>
-    lateinit var spinnerDestino: Spinner
-    lateinit var adaptadorDestino: ArrayAdapter<CharSequence>
-    lateinit var editDinero: EditText
-    lateinit var botonCambio: Button
-    lateinit var origen: String
-    lateinit var destino: String
-
+    private lateinit var vista: View;
+    private lateinit var spinnerOrigen: Spinner
+    private lateinit var adaptadorOrigen: ArrayAdapter<CharSequence>
+    private lateinit var spinnerDestino: Spinner
+    private lateinit var adaptadorDestino: ArrayAdapter<CharSequence>
+    private lateinit var editDinero: EditText
+    private lateinit var botonCambio: Button
+    private lateinit var origen: String
+    private lateinit var destino: String
+    private lateinit var listener: onDialogoListener
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         vista = LayoutInflater.from(context).inflate(R.layout.item_dialog, null);
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var builder = AlertDialog.Builder(requireContext())
         builder.setView(vista)
+        this.listener = context as onDialogoListener
         return builder.create()
     }
 
@@ -67,7 +70,7 @@ class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListene
             if (editDinero.text.isNotEmpty()) {
                 spinnerOrigen.onItemSelectedListener = this
                 spinnerDestino.onItemSelectedListener = this
-                editDinero.text
+                listener.onDialogoTextoSelected(editDinero.text.toString());
                 dismiss()
             } else {
                 Snackbar.make(vista, "Falta algun dato", Snackbar.LENGTH_SHORT).show()
@@ -79,9 +82,11 @@ class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListene
         when (p0!!.id) {
             spinnerOrigen.id -> {
                 origen = adaptadorOrigen.getItem(p2).toString()
+                listener.onDialogoOrigenSelected(origen)
             }
             spinnerDestino.id -> {
                 destino = adaptadorDestino.getItem(p2).toString()
+                listener.onDialogoDestinoSelected(destino)
             }
         }
     }
@@ -89,5 +94,10 @@ class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListene
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
-    interface
+
+    interface onDialogoListener{
+        fun onDialogoOrigenSelected(mensaje: String)
+        fun onDialogoDestinoSelected(mensaje: String)
+        fun onDialogoTextoSelected(mensaje: String)
+    }
 }

@@ -3,7 +3,7 @@ package com.example.t4_conversor
 class Moneda(
     private var origen: String,
     private var destino: String,
-    private var texto: Double = 0.0
+    private var texto: Int = 0
 ) {
 
     private var resultado: Double = 0.0
@@ -28,10 +28,10 @@ class Moneda(
             resultado = texto * 0.88657024
 
         } else if (origen == "euros" && destino == "euros") {
-            resultado = texto
+            resultado = texto.toDouble()
 
         } else if (origen == "dolar" && destino == "dolar") {
-            resultado = texto
+            resultado = texto.toDouble()
 
         } else if (origen == "dolar" && destino == "euros") {
             resultado = texto * 0.92457468
@@ -40,7 +40,7 @@ class Moneda(
             resultado = texto * 0.81963498
 
         } else if (origen == "libras" && destino == "libras") {
-            resultado = texto
+            resultado = texto.toDouble()
 
         } else if (origen == "libras" && destino == "euros") {
             resultado = texto * 1.127969
