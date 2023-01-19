@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.t4_conversor.Moneda
+import com.example.t4_conversor.model.Moneda
 import com.example.t4_conversor.R
 import com.google.android.material.snackbar.Snackbar
 

@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">T5_Dialogos</string>
     <string name="titulo_dialogo_confirm">Continuar</string>
+    <string-array name="departamentos">
+        <item>Comercial</item>
+        <item>Ventas</item>
+        <item>MArketing</item>
+        <item>IT</item>
+        <item>Soporte</item>
+    </string-array>
 </resources>

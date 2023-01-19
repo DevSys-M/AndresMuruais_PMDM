@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.example.t4_conversor.Moneda
 import com.example.t4_conversor.R
 import com.google.android.material.snackbar.Snackbar
 

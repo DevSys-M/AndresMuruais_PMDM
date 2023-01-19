@@ -2,9 +2,11 @@ package com.example.t4_conversor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t4_conversor.adapter.AdapterMoneda
 import com.example.t4_conversor.databinding.ActivityMainBinding
 import com.example.t4_conversor.dialog.DialogoPersonalizado
+import com.example.t4_conversor.model.Moneda
 
 class MainActivity : AppCompatActivity(), DialogoPersonalizado.onDialogoListener {
     private lateinit var binding: ActivityMainBinding
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity(), DialogoPersonalizado.onDialogoListener
 
     private fun asociarDatos() {
         binding.recycler.adapter = adapterMoneda
+        //layout
+        binding.recycler.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
     }
 
     private fun acciones() {

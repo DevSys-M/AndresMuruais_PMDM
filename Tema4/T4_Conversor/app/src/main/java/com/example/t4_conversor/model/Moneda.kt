@@ -1,4 +1,4 @@
-package com.example.t4_conversor
+package com.example.t4_conversor.model
 
 class Moneda(
     private var origen: String,
