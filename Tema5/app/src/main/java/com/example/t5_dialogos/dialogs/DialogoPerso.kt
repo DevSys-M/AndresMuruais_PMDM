@@ -33,9 +33,7 @@ class DialogoPerso : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext());
-
         builder.setView(vista)
-
         return builder.create()
     }
 

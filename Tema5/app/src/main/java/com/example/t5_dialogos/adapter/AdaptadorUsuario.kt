@@ -13,7 +13,11 @@ import com.example.t5_dialogos.model.Usuario
 class AdaptadorUsuario(var contexto: Context, var lista: ArrayList<Usuario>) :
     RecyclerView.Adapter<AdaptadorUsuario.MyHolder>() {
 
-    //private lateinit var listener:
+        private  var listener: OnRecyclerListener
+
+        init {
+            listener = contexto as OnRecyclerListener
+        }
 
 
         inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,8 +25,6 @@ class AdaptadorUsuario(var contexto: Context, var lista: ArrayList<Usuario>) :
             var textoNombre: TextView
             var textoDept: TextView
             var linear: LinearLayout
-
-
 
 
             init {
@@ -43,7 +45,7 @@ class AdaptadorUsuario(var contexto: Context, var lista: ArrayList<Usuario>) :
             holder.textoNombre.text = usuario.nombre
             holder.textoDept.text = usuario.departamento
             holder.linear.setOnClickListener{
-
+                listener.onRecyclerSelected(usuario)
             }
         }
 
@@ -56,5 +58,8 @@ class AdaptadorUsuario(var contexto: Context, var lista: ArrayList<Usuario>) :
             notifyItemInserted(lista.size-1)
         }
 
+        interface OnRecyclerListener{
+            fun onRecyclerSelected(usuario: Usuario)
+        }
 
     }

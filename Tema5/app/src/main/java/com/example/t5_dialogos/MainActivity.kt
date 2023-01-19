@@ -1,5 +1,6 @@
 package com.example.t5_dialogos
 
+import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
@@ -7,15 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t5_dialogos.adapter.AdaptadorUsuario
 import com.example.t5_dialogos.databinding.ActivityMainBinding
 import com.example.t5_dialogos.dialogs.*
 import com.example.t5_dialogos.model.Usuario
+import com.google.android.material.snackbar.Snackbar
 
 //implemetar la interfaz
-class MainActivity : AppCompatActivity(), OnClickListener, DialogoConfirmacion.OnDialogoListener,DialogoSelecion.onDialogoListaListener,DialogoSimple.OnDialogoSimpleListener, TimePickerDialog.OnTimeSetListener {
+class MainActivity : AppCompatActivity(), OnClickListener, AdaptadorUsuario.OnRecyclerListener,
+    DialogoConfirmacion.OnDialogoListener, DialogoSelecion.onDialogoListaListener,DialogoSimple.OnDialogoSimpleListener,DialogoPerso.OnRecyclerUsuariosListener,
+    DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
      private lateinit var binding: ActivityMainBinding
 
     private lateinit var adapterRecycler: AdaptadorUsuario
@@ -24,7 +29,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, DialogoConfirmacion.O
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapterRecycler = AdaptadorUsuario(applicationContext, ArrayList<Usuario>())
+        adapterRecycler = AdaptadorUsuario(this, ArrayList<Usuario>())
         binding.recyclerUsuarios.adapter = adapterRecycler;
         binding.recyclerUsuarios.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -83,6 +88,22 @@ class MainActivity : AppCompatActivity(), OnClickListener, DialogoConfirmacion.O
     override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
         //p1 hora
         //p2 minutos
+        binding.textoHora.text = "Hora:${p1} Minutos: ${p2}"
+    }
+
+    override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
+        // p1 año
+        // p2 mes
+        // p3 dia
+        binding.textoFecha.text = "Dia: ${p3} Mes:${p2+1} Año: ${p1}"
+    }
+
+    override fun onRecyclerSelected(usuario: Usuario) {
+        Snackbar.make(binding.root,"${usuario.pass} ${usuario.recordad}", Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun usuarioSelected(usuario: Usuario) {
+        adapterRecycler.addUser(usuario)
     }
 
 }
