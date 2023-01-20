@@ -39,10 +39,11 @@ class MainActivity : AppCompatActivity(), OnClickListener, AdaptadorUsuario.OnRe
         binding.botonSimple.setOnClickListener(this)
         binding.botonMultiple.setOnClickListener(this)
         binding.botonPersonalizado.setOnClickListener(this)
-        binding.botonPersonalizado.setOnClickListener(this)
-        binding.botonMultiple.setOnClickListener (this)
+
         binding.botonHora.setOnClickListener(this)
         binding.botonFecha.setOnClickListener(this)
+
+        binding.botonComunica.setOnClickListener(this)
 
     }
 
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity(), OnClickListener, AdaptadorUsuario.OnRe
             }
             binding.botonFecha.id->{
                 DialogoFecha().show(supportFragmentManager,null)
+            }
+            binding.botonComunica.id->{
+              DialogoComunica.newInstance("Andy","Murray").show(supportFragmentManager,"")
+
             }
         }
     }
