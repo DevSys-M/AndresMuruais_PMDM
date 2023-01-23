@@ -33,7 +33,7 @@ class DialogoMultiple : DialogFragment() {
             })
 
 
-        // se le comunique a la activity el numero de elementos que estan seleccionados
+        // se le comunica a la activity el numero de elementos que estan seleccionados
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, i ->
             //Log.v("dialogos", "realizar comunicacion")
             selecciones.forEach { Log.v("dialogo", it) }
