@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="@string/menu_uno"
+        android:id="@+id/menuop_uno"/>
+    <item android:title="@string/menu_dos"
+        android:id="@+id/menuop_dos"
+        android:icon="@drawable/ic_launcher_foreground"
+        app:showAsAction="ifRoom"
+        />
+    <item android:title="@string/menu_tres"
+        android:id="@+id/menuop_tres"
+        android:icon="@drawable/ic_launcher_foreground"
+        app:showAsAction="ifRoom"
+        />
+    <item android:title="@string/menu_cuatro"
+        android:id="@+id/menuop_cuatro"
+        android:icon="@drawable/ic_launcher_foreground"
+        app:showAsAction="ifRoom"
+        />
+    <item android:title="submenu">
+        <menu>
+            <item android:title="Opcion 1_1"
+                android:id="@+id/menu_op_uno_uno"/>
+            <item android:title="Opcion 1_2"
+                android:id="@+id/menu_op_uno_dos"/>
+        </menu>
+    </item>
+
+
+</menu>
