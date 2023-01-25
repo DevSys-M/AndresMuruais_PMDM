@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import com.example.t6_menu.adapters.AdapterRecycler
 import com.example.t6_menu.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var menuOP1: MenuItem
+    private lateinit var adaptadorRecycler: AdapterRecycler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -19,13 +23,28 @@ class MainActivity : AppCompatActivity() {
     //asociar barra superior con el menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //menu donde lo voy a poner
-        menuInflater.inflate(R.menu.menu_main,menu)
+        //menuInflater.inflate(R.menu.menu_main,menu)
+        menuInflater.inflate(R.menu.menu_second,menu)
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var texto = ""
-        when(item.itemId){
+        when(item.itemId) {
+
+            R.id.menu_add->{
+
+            }
+            R.id.menu_clear->{
+
+            }
+
+        }
+        return true
+    }
+
+            /*
             R.id.menuop_uno->{
                texto = "Pulsado elemento 1"
             }
@@ -47,7 +66,9 @@ class MainActivity : AppCompatActivity() {
         // Pulsado el elemento {1-5}
         // Pulsado elemento {100}
         return true
-    }
+        */
+
+
     //crear un menu adicional nuevo, condos opciones ADD y CLEAR
     // al dar add enun recyclerview va añadiendo prueba.
     // si se da al boton de vaciar se elimina todo.

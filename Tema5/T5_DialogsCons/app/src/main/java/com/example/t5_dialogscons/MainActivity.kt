@@ -12,7 +12,7 @@ import com.example.t5_dialogscons.dialogs.*
 import com.example.t5_dialogscons.model.Usuario
 
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
- DialogoPerso.OnUsuarioListener, DialogoConfirmacion.OnDialogoListener{
+ DialogoPerso.OnUsuarioListener, DialogoConfirmacion.OnDialogoListener,DialogoMultiple.OnMultipleListener{
     private lateinit var binding: ActivityMainBinding
     private lateinit var hora: String
     private lateinit var minutos: String
@@ -57,5 +57,9 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         if (boolean){
             DialogoMultiple().show(supportFragmentManager,null)
         }
+    }
+
+    override fun onMultipleSelected(lista: ArrayList<String>) {
+
     }
 }
