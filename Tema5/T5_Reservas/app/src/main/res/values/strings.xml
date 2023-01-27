@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">T5_Reservas</string>
+    <string-array name="ciudades">
+        <item>Londres</item>
+        <item>Barcelona</item>
+        <item>Madrid</item>
+        <item>Miami</item>
+        <item>New York</item>
+        <item>SAn Francisco</item>
+    </string-array>
 </resources>

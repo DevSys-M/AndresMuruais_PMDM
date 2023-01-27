@@ -21,7 +21,8 @@
         android:id="@+id/texto_origen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5"
+        android:text="Origen" />
 
 </LinearLayout>
     <LinearLayout
@@ -39,7 +40,8 @@
             android:id="@+id/texto_destino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5"
+            android:text="Destino"/>
 
     </LinearLayout>
     <Button
