@@ -21,7 +21,7 @@ class DialogoMultiple: DialogFragment() {
         val elementos = arrayOf(" PMDM", "DI", "AD", "SGE", "EIE", "ING")
 
         builder.setTitle("Selecion Multiple")
-        builder.setMessage("¿De cuantas asignaturas te has evaluado?")
+        //builder.setMessage("¿De cuantas asignaturas te has evaluado?")
 
         builder.setMultiChoiceItems(elementos,null, DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
             if(isChecked){

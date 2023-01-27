@@ -9,10 +9,12 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import com.example.t5_dialogscons.databinding.ActivityMainBinding
 import com.example.t5_dialogscons.dialogs.*
+import com.example.t5_dialogscons.dialogs.DialogoConfirmacion.Companion.newInstance
 import com.example.t5_dialogscons.model.Usuario
 
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
- DialogoPerso.OnUsuarioListener, DialogoConfirmacion.OnDialogoListener,DialogoMultiple.OnMultipleListener{
+ DialogoPerso.OnUsuarioListener, DialogoConfirmacion.OnDialogoListener,DialogoMultiple.OnMultipleListener,
+DialogoPersoNota.OnNotaListener{
     private lateinit var binding: ActivityMainBinding
     private lateinit var hora: String
     private lateinit var minutos: String
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     private lateinit var anio:String
     private lateinit var nombre: String
     private lateinit var apellido: String
+    private lateinit var nota: String
+    private lateinit var elementos: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,16 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     }
 
     override fun onMultipleSelected(lista: ArrayList<String>) {
+        elementos= ArrayList()
+        elementos = lista
+        lista.forEach { elemento->Log.v("asignatura",elemento) }
+        DialogoPersoNota().show(supportFragmentManager,null)
 
     }
+
+    override fun notaSelected(mensaje: String) {
+        nota = mensaje
+        DialogoPersoResumen.newInstance(hora,minutos,dia,mes,anio,nombre,elementos,nota).show(supportFragmentManager,null)
+    }
+
 }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">T5_DialogsCons</string>
+    <string name="hora">Hora:</string>
+    <string name="nombre_y_apellidos">Nombre y Apellidos:</string>
+    <string name="media_obtenida">Media obtenida:</string>
+    <string name="fecha">Fecha:</string>
+    <string name="n_mero_de_asignaturas_a_evaluar">Número de asignaturas a evaluar:</string>
 </resources>

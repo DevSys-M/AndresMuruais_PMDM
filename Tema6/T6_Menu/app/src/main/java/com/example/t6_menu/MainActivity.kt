@@ -5,19 +5,28 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t6_menu.adapters.AdapterRecycler
 import com.example.t6_menu.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
-    private lateinit var menuOP1: MenuItem
     private lateinit var adaptadorRecycler: AdapterRecycler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        adaptadorRecycler = AdapterRecycler(this, ArrayList())
+        binding.recyclerAsignaturas.adapter = adaptadorRecycler
+
+        binding.recyclerAsignaturas.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
+
+        // binding.recyclerAsignaturas
+        // adaptador
     }
 
     //asociar barra superior con el menu
@@ -34,11 +43,15 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
 
             R.id.menu_add->{
-
+                adaptadorRecycler.agregarDato("prueba")
             }
             R.id.menu_clear->{
-
+                adaptadorRecycler.vaciarLista()
             }
+
+            //crear un menu adicional nuevo, condos opciones ADD y CLEAR
+            // al dar add enun recyclerview va añadiendo prueba.
+            // si se da al boton de vaciar se elimina todo.
 
         }
         return true
@@ -67,9 +80,4 @@ class MainActivity : AppCompatActivity() {
         // Pulsado elemento {100}
         return true
         */
-
-
-    //crear un menu adicional nuevo, condos opciones ADD y CLEAR
-    // al dar add enun recyclerview va añadiendo prueba.
-    // si se da al boton de vaciar se elimina todo.
 }

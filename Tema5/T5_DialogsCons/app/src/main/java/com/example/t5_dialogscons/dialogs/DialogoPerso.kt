@@ -14,12 +14,12 @@ import com.example.t5_dialogscons.R
 import com.example.t5_dialogscons.model.Usuario
 
 class DialogoPerso: DialogFragment() {
-    lateinit var vista: View
-    lateinit var editNombre: EditText
-    lateinit var editApellido: EditText
-    lateinit var botonRegistrar: Button
+    private lateinit var vista: View
+    private lateinit var editNombre: EditText
+    private lateinit var editApellido: EditText
+    private lateinit var botonRegistrar: Button
 
-    lateinit var listener: OnUsuarioListener
+    private lateinit var listener: OnUsuarioListener
 
 
     override fun onAttach(context: Context) {

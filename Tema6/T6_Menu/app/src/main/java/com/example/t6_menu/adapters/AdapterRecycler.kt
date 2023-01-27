@@ -18,19 +18,37 @@ class AdapterRecycler(var context: Context, var lista: ArrayList<String>):
                 textoNombre = itemView.findViewById(R.id.texto_item)
             }
         }
+    fun agregarDato(nombre: String){
+        lista.add(nombre)
+        notifyItemInserted(lista.size-1)
+    }
+
+    fun vaciarLista(){
+        lista.clear()
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val vista = LayoutInflater.from(context).inflate(R.layout.item_recycler,parent,false)
+        return MyHolder(vista)
     }
 
 
 
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        TODO("Not yet implemented")
+       val nombre = lista[position]
+
+        holder.textoNombre.text = nombre
+        holder.textoNombre.setOnLongClickListener {
+            lista.remove(nombre)
+            this.notifyItemRemoved(position)
+            return@setOnLongClickListener true
+        }
     }
 
     override fun getItemCount(): Int {
-        lista.size
+        return lista.size
+    }
 
 }
