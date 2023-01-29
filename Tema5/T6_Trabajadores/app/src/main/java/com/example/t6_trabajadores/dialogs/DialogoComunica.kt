@@ -1,5 +1,6 @@
 package com.example.t6_trabajadores.dialogs
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Build
@@ -8,13 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.example.t6_trabajadores.MainActivity
 import com.example.t6_trabajadores.R
 import com.example.t6_trabajadores.model.Trabajador
 
-class DialogoComunica: DialogFragment() {
+class DialogoComunica : DialogFragment() {
     private lateinit var vista: View
     private lateinit var textoNombre: TextView
     private lateinit var textoApellido: TextView
@@ -25,11 +26,11 @@ class DialogoComunica: DialogFragment() {
 
     private lateinit var trabajador: Trabajador
 
-    companion object{
-        fun newInstance(empleado: Trabajador): DialogoComunica{
+    companion object {
+        fun newInstance(empleado: Trabajador): DialogoComunica {
             val dialogoComunica = DialogoComunica()
             val args = Bundle()
-            args.putSerializable("trabajador",empleado)
+            args.putSerializable("trabajador", empleado)
             dialogoComunica.arguments = args
             return dialogoComunica
         }
@@ -40,6 +41,7 @@ class DialogoComunica: DialogFragment() {
         vista = LayoutInflater.from(context).inflate(R.layout.item_dialog, null)
         trabajador = this.arguments?.getSerializable("trabajador") as Trabajador
     }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext());
         builder.setTitle("Empleado")
@@ -65,7 +67,7 @@ class DialogoComunica: DialogFragment() {
         textoCorreo.text = trabajador.correo
         textoEdad.text = trabajador.edad
         textoPuesto.text = trabajador.puesto
-        linear.setOnClickListener{
+        linear.setOnClickListener {
             dismiss()
         }
 
