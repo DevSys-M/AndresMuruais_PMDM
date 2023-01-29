@@ -6,6 +6,9 @@
     <string name="edad">Edad</string>
     <string name="boton_add">add</string>
     <string-array name="puestos">
-
+        <item>Administrativo</item>
+        <item>Comercial</item>
+        <item>Informática</item>
+        <item>Soporte</item>
     </string-array>
 </resources>
