@@ -12,6 +12,7 @@ import android.widget.TimePicker
 import com.example.t5_reservas.databinding.ActivityMainBinding
 import com.example.t5_reservas.dialogs.DialogoFecha
 import com.example.t5_reservas.dialogs.DialogoHora
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: ActivityMainBinding
@@ -84,10 +85,13 @@ class MainActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener, Tim
         horaO = hourOfDay
         minutosO = minute
         binding.textoOrigen.setText("${diaO}/${mesO}/${anioO} ${horaO}:${minutosO}")
-        if (horaO>0){
+        if (horaD<=horaO){
             horaD= hourOfDay
             minutosD = minute
             binding.textoDestino.setText("${diaD}/${mesD}/${anioD} ${horaD}:${minutosD}")
+        }
+        else{
+            Snackbar.make(binding.root,"La fecha no puede ser mayor",Snackbar.LENGTH_SHORT).show()
         }
     }
 }

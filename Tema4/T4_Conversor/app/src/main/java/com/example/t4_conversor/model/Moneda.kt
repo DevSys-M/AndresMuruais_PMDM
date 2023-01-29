@@ -1,54 +1,38 @@
 package com.example.t4_conversor.model
 
-class Moneda(
-    private var origen: String,
-    private var destino: String,
-    private var texto: Int = 0
-) {
+import java.io.Serializable
 
-    private var resultado: Double = 0.0
+class Moneda(var origen: String, var destino: String, var texto: String) : Serializable {
+    private lateinit var resultado: String
 
-    fun getOrigen() {
-        this.origen
-    }
-
-    fun getDestino() {
-        this.destino
-    }
-
-    fun getTexto() {
-        this.texto
-    }
-
-    fun calularCambio(): Double {
-        if (origen == "euros" && destino == "dolar") {
-            resultado = texto * 1.0831391
-
-        } else if (origen == "euros" && destino == "libra") {
-            resultado = texto * 0.88657024
-
-        } else if (origen == "euros" && destino == "euros") {
-            resultado = texto.toDouble()
-
-        } else if (origen == "dolar" && destino == "dolar") {
-            resultado = texto.toDouble()
-
-        } else if (origen == "dolar" && destino == "euros") {
-            resultado = texto * 0.92457468
-
-        } else if (origen == "dolar" && destino == "libras") {
-            resultado = texto * 0.81963498
-
-        } else if (origen == "libras" && destino == "libras") {
-            resultado = texto.toDouble()
-
-        } else if (origen == "libras" && destino == "euros") {
-            resultado = texto * 1.127969
-
-        } else if (origen == "libras" && destino == "dolar") {
-            resultado = texto * 1.2197641
-
+    fun conversor(): String {
+        if (origen.equals("euros") and destino.equals("euros")) {
+            resultado = texto
+        } else if (origen.equals("euros") and destino.equals("dolar")) {
+            resultado = (texto as Double * 1.0858908).toString()
+        } else if (origen.equals("euros") and destino.equals("libra")) {
+            resultado = (texto as Double * 0.87653576).toString()
+        } else if (origen.equals("dolar") and destino.equals("euros")) {
+            resultado = (texto as Double * 0.92090287).toString()
+        } else if (origen.equals("dolar") and destino.equals("dolar")) {
+            resultado = texto
+        } else if (origen.equals("dolar") and destino.equals("libra")) {
+            resultado = (texto as Double * 0.8072043).toString()
+        } else if (origen.equals("libra") and destino.equals("euros")) {
+            resultado = (texto as Double * 1.1408548).toString()
+        } else if (origen.equals("libra") and destino.equals("dolar")) {
+            resultado = (texto as Double * 1.2388437).toString()
+        } else if (origen.equals("libra") and destino.equals("libra")) {
+            resultado = texto
         }
         return resultado
     }
+
+    override fun toString(): String {
+        return "origen: ${origen}" +
+                "destino: ${destino}" +
+                "texto: ${texto}"
+
+    }
+
 }

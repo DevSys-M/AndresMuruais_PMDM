@@ -2,16 +2,16 @@ package com.example.t4_conversor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t4_conversor.adapter.AdapterMoneda
 import com.example.t4_conversor.databinding.ActivityMainBinding
 import com.example.t4_conversor.dialog.DialogoPersonalizado
 import com.example.t4_conversor.model.Moneda
+import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity(), DialogoPersonalizado.onDialogoListener {
+class MainActivity : AppCompatActivity(), DialogoPersonalizado.onDialogoListener, AdapterMoneda.OnRecyclerListener{
     private lateinit var binding: ActivityMainBinding
-    private lateinit var listaMoneda: ArrayList<Moneda>
-    private lateinit var moneda: Moneda
     private lateinit var adapterMoneda: AdapterMoneda
 
 
@@ -26,33 +26,29 @@ class MainActivity : AppCompatActivity(), DialogoPersonalizado.onDialogoListener
 
 
     private fun instancias() {
-        listaMoneda= ArrayList()
-        listaMoneda.add(Moneda(moneda.getOrigen().toString(),moneda.getDestino().toString(),moneda.getTexto() as Int))
-        adapterMoneda = AdapterMoneda(this,listaMoneda)
+        adapterMoneda = AdapterMoneda(this, ArrayList<Moneda>())
     }
 
     private fun asociarDatos() {
         binding.recycler.adapter = adapterMoneda
         //layout
-        binding.recycler.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
+        binding.recycler.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun acciones() {
         binding.botonConversor.setOnClickListener {
-            DialogoPersonalizado().show(supportFragmentManager,"")
+            DialogoPersonalizado().show(supportFragmentManager, null)
         }
     }
 
-    override fun onDialogoOrigenSelected(mensaje: String) {
-        moneda.getOrigen()
+    override fun onDialogoSelected(moneda: Moneda) {
+        adapterMoneda.addMoneda(moneda)
+        Log.v("asignatura", moneda.toString())
     }
 
-    override fun onDialogoDestinoSelected(mensaje: String) {
-        moneda.getDestino()
+    override fun onRecyclerSelected(moneda: Moneda) {
+        Snackbar.make(binding.root,"${moneda.texto} ${moneda.origen} son ${moneda.conversor()} ${moneda.destino}",Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun onDialogoTextoSelected(mensaje: String) {
-        moneda.getTexto()
-    }
 
 }

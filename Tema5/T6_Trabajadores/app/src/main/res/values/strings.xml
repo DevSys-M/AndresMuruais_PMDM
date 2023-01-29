@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">T6_Trabajadores</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="correo">Correo</string>
+    <string name="edad">Edad</string>
+    <string name="boton_add">add</string>
+    <string-array name="puestos">
+
+    </string-array>
+</resources>

@@ -11,8 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.t5_dialogscons.R
+import com.example.t5_dialogscons.model.Asignaturas
 
-class DialogoPersoResumen:DialogFragment() {
+class DialogoPersoResumen : DialogFragment() {
 
     private lateinit var vista: View;
     private lateinit var hora: String
@@ -21,7 +22,9 @@ class DialogoPersoResumen:DialogFragment() {
     private lateinit var mes: String
     private lateinit var anio: String
     private lateinit var nombre: String
-    private lateinit var arrayAsignaturas: ArrayList<String>
+    private lateinit var apellido: String
+    private lateinit var asignaturas: Asignaturas
+    private lateinit var elemento: String
     private lateinit var nota: String
 
     private lateinit var textoNombre: TextView
@@ -39,9 +42,10 @@ class DialogoPersoResumen:DialogFragment() {
             mes: String,
             anio: String,
             nombre: String,
-            asignaturas: ArrayList<String>,
+            apellido: String,
+            asignaturas: Asignaturas,
             nota: String
-        ):DialogoPersoResumen {
+        ): DialogoPersoResumen {
             val dialogoPersoResumen = DialogoPersoResumen()
             val args = Bundle()
             args.putString("hora", hora)
@@ -50,7 +54,8 @@ class DialogoPersoResumen:DialogFragment() {
             args.putString("mes", mes)
             args.putString("anio", anio)
             args.putString("nombre", nombre)
-            args.putStringArrayList("asignaturas", asignaturas)
+            args.putString("apellido", apellido)
+            args.putSerializable("asignatura", asignaturas)
             args.putString("nota", nota)
             dialogoPersoResumen.arguments = args
             return dialogoPersoResumen
@@ -59,15 +64,17 @@ class DialogoPersoResumen:DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        hora = this.arguments?.getString("hora")?:"HH"
+        hora = this.arguments?.getString("hora") ?: "HH"
         minutos = this.arguments?.getString("minutos") ?: "MM"
         dia = this.arguments?.getString("dia") ?: "D"
         mes = this.arguments?.getString("mes") ?: "M"
         anio = this.arguments?.getString("anio") ?: "Y"
         nombre = this.arguments?.getString("nombre") ?: "NOMBRE"
-        arrayAsignaturas = (this.arguments?.getStringArray("asignaturas")?:"Asignatura") as ArrayList<String>
+        apellido = this.arguments?.getString("apellido") ?: "APELLIDO"
+        asignaturas = (this.arguments?.getSerializable("asignatura") ?: "ASIGNATURA") as Asignaturas
         nota = this.arguments?.getString("nota") ?: "0"
         vista = LayoutInflater.from(context).inflate(R.layout.item_resumen, null)
+        elemento = ""
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -86,15 +93,17 @@ class DialogoPersoResumen:DialogFragment() {
         botonFin = vista.findViewById(R.id.boton_fin)
     }
 
+
     @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
-        botonFin.setOnClickListener{
-            textoNombre.text= nombre
-            textoHora.text = "${hora}:${minutos}"
-            textoFecha.text = "${dia}/${mes}/${anio}"
-            arrayAsignaturas.forEach { textoAsignatura.text = it }
-            textoNota.text = nota
+        asignaturas.arrayAsignatura.forEach { elemento += "$it " }
+        textoNombre.text = "${nombre} ${apellido}"
+        textoHora.text = "${hora}:${minutos}"
+        textoFecha.text = "${dia}/${mes}/${anio}"
+        textoAsignatura.text = elemento
+        textoNota.text = nota
+        botonFin.setOnClickListener {
             dismiss()
         }
 

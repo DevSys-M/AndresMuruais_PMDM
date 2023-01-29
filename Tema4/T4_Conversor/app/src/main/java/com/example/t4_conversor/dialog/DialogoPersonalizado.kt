@@ -10,9 +10,10 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.t4_conversor.R
+import com.example.t4_conversor.model.Moneda
 import com.google.android.material.snackbar.Snackbar
 
-class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListener {
+class DialogoPersonalizado : DialogFragment() {
 
     private lateinit var vista: View;
     private lateinit var spinnerOrigen: Spinner
@@ -21,8 +22,7 @@ class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListene
     private lateinit var adaptadorDestino: ArrayAdapter<CharSequence>
     private lateinit var editDinero: EditText
     private lateinit var botonCambio: Button
-    private lateinit var origen: String
-    private lateinit var destino: String
+
     private lateinit var listener: onDialogoListener
 
 
@@ -67,9 +67,8 @@ class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListene
         super.onResume()
         botonCambio.setOnClickListener {
             if (editDinero.text.isNotEmpty()) {
-                spinnerOrigen.onItemSelectedListener = this
-                spinnerDestino.onItemSelectedListener = this
-                listener.onDialogoTextoSelected(editDinero.text.toString());
+                listener.onDialogoSelected(Moneda(spinnerOrigen.selectedItem.toString(),spinnerDestino.selectedItem.toString() ,
+                    editDinero.text.toString()))
                 dismiss()
             } else {
                 Snackbar.make(vista, "Falta algun dato", Snackbar.LENGTH_SHORT).show()
@@ -77,26 +76,7 @@ class DialogoPersonalizado : DialogFragment(), AdapterView.OnItemSelectedListene
         }
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        when (p0!!.id) {
-            spinnerOrigen.id -> {
-                origen = adaptadorOrigen.getItem(p2).toString()
-                listener.onDialogoOrigenSelected(origen)
-            }
-            spinnerDestino.id -> {
-                destino = adaptadorDestino.getItem(p2).toString()
-                listener.onDialogoDestinoSelected(destino)
-            }
-        }
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
-
     interface onDialogoListener{
-        fun onDialogoOrigenSelected(mensaje: String)
-        fun onDialogoDestinoSelected(mensaje: String)
-        fun onDialogoTextoSelected(mensaje: String)
+       fun onDialogoSelected(moneda: Moneda)
     }
 }

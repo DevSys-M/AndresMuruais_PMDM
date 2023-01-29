@@ -64,7 +64,7 @@ class AdaptadorRecycler(var context: Context,var lista: ArrayList<Usuarios>) :Re
     override fun getItemCount(): Int {
         return  lista.size
     }
-    // Interfaz de Kolvak
+    // Interfaz de callback
     //1.Origen de los datos creo una interfaz
 
     interface OnRecyclerUsuarioListener{

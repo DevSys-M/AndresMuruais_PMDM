@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         listaRestaurantes.add(Restaurante("Vegetariano 1", 10, "Vegetariano", 8123,R.drawable.vegetariana))
         listaRestaurantes.add(Restaurante("Vegetariano 2", 5, "Vegetariano", 7123,R.drawable.vegetariana))
         listaRestaurantes.add(Restaurante("Vegetariano 3", 6, "Vegetariano", 6234,R.drawable.vegetariana))
-        listaRestaurantes.add(Restaurante("Americano 1", 6, "Americano", 6234,R.drawable.vegetariana))
+        listaRestaurantes.add(Restaurante("Americano 1", 6, "Americano", 6234,R.drawable.americana))
         listaRestaurantes.add(Restaurante("Americano 2", 9, "Americano", 6234,R.drawable.americana))
         listaRestaurantes.add(Restaurante("Americano 3", 6, "Americano", 6234,R.drawable.americana))
         listaRestaurantes.add(Restaurante("Americano 4", 7, "Americano", 6234,R.drawable.americana))

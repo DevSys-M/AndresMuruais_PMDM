@@ -15,8 +15,8 @@ class DialogoHora: DialogFragment() {
         val calendario: Calendar = Calendar.getInstance();
         val hora = calendario.get(Calendar.HOUR)
         val minutos = calendario.get(Calendar.MINUTE)
-        val dialogoHora = TimePickerDialog(requireContext(),requireContext() as TimePickerDialog.OnTimeSetListener,hora,minutos,true)
-        TimePickerDialog( requireContext(), requireContext() as TimePickerDialog.OnTimeSetListener,hora,minutos,true)
+
+        val dialogoHora = TimePickerDialog(requireContext(),requireContext() as TimePickerDialog.OnTimeSetListener,hora,minutos,false)
         return dialogoHora
     }
 }

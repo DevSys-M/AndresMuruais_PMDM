@@ -46,6 +46,17 @@ class DialogoConfirmacion: DialogFragment() {
             listener.onDialogoSelected("SALIR")
         })
 
+
+
+
+
+
+
+
+
+
+
+
         return builder.create()
     }
 
