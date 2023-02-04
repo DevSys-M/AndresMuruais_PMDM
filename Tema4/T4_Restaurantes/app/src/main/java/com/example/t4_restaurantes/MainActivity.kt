@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         when(p0!!.id){
             binding.spinnerValoracion.id->{
                 valoracion = binding.spinnerValoracion.adapter.getItem(p2).toString()
-
+                Log.v("valoracion",valoracion)
                 when(p2){
                     0 ->{
                         listaRestaurantesPasar= listaRestaurantes

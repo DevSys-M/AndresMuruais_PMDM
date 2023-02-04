@@ -16,7 +16,7 @@ class AdapterComida(private var listaDatos: ArrayList<Comida>,private var contex
     }
 
     override fun getItem(p0: Int): Any {
-       return listaDatos.get(p0)
+       return listaDatos[p0]
     }
 
     override fun getItemId(p0: Int): Long {
