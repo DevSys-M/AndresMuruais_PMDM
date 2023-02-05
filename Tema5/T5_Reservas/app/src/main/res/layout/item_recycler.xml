@@ -52,6 +52,7 @@
         android:layout_width="393dp"
         android:layout_height="49dp"
         android:text="ver detalles"
+        android:alpha="0.5"
         app:layout_constraintBottom_toBottomOf="@+id/imagen_destino"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -11,7 +11,7 @@ class DialogoHora: DialogFragment() {
     val minutos = Calendar.getInstance().get(Calendar.MINUTE)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialogo = TimePickerDialog(context, activity as TimePickerDialog.OnTimeSetListener, hora,minutos,true)
+        val dialogo = TimePickerDialog(context, activity as TimePickerDialog.OnTimeSetListener, hora,minutos,false)
         return dialogo
     }
 }

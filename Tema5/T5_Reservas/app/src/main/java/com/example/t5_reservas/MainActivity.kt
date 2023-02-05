@@ -9,24 +9,28 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.LinearLayout
 import android.widget.TimePicker
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t5_reservas.adapters.AdapterRecycler
 import com.example.t5_reservas.adapters.AdapterSpinner
 import com.example.t5_reservas.databinding.ActivityMainBinding
+import com.example.t5_reservas.dialogs.DialogoDetalles
 import com.example.t5_reservas.dialogs.DialogoFecha
 import com.example.t5_reservas.dialogs.DialogoHora
 import com.example.t5_reservas.model.Ciudades
+import com.example.t5_reservas.model.Reservas
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
-    TimePickerDialog.OnTimeSetListener, AdapterView.OnItemSelectedListener {
+    TimePickerDialog.OnTimeSetListener, AdapterView.OnItemSelectedListener,
+    AdapterRecycler.OnRecyclerListener {
     lateinit var binding: ActivityMainBinding
 
     private lateinit var arrayCiudad: ArrayList<Ciudades>
     private lateinit var adaptadorCiudad: AdapterSpinner
 
     private lateinit var adapterRecycler: AdapterRecycler
-
 
     private var horaO: Int = 0
     private var horaD: Int = 0
@@ -40,15 +44,16 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     private var anioD: Int = 0
     private var origen = false
 
+    private lateinit var ciudadOrigen: Ciudades
+    private lateinit var ciudadDestino: Ciudades
     private lateinit var textoOrigen: String
     private lateinit var textoDestino: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        //spinner
         binding.spinnerOrigen.adapter = ArrayAdapter.createFromResource(
             applicationContext,
             R.array.ciudades,
@@ -57,7 +62,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         (binding.spinnerOrigen.adapter as ArrayAdapter<CharSequence>).setDropDownViewResource(
             android.R.layout.simple_spinner_dropdown_item
         )
-
+        //spinner
         arrayCiudad = ArrayList()
         arrayCiudad.add(Ciudades(R.drawable.madrid, "Madrid"))
         arrayCiudad.add(Ciudades(R.drawable.barcelona, "Barcelona"))
@@ -67,16 +72,34 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         arrayCiudad.add(Ciudades(R.drawable.miami, "Miami"))
         adaptadorCiudad = AdapterSpinner(arrayCiudad, applicationContext)
         binding.spinnerDestino.adapter = adaptadorCiudad
-        adaptadorCiudad.notifyDataSetChanged()
+
 
         binding.spinnerOrigen.onItemSelectedListener = this
         binding.spinnerDestino.onItemSelectedListener = this
-
+        //dialogos
         binding.textoOrigen.setOnClickListener {
             DialogoFecha().show(supportFragmentManager, null)
         }
         binding.textoDestino.setOnClickListener {
             DialogoFecha.newInstance(diaO, mesO, anioO).show(supportFragmentManager, null)
+        }
+        //Recycler
+        adapterRecycler = AdapterRecycler(ArrayList<Reservas>(), this)
+        binding.recycler.adapter = adapterRecycler
+        binding.recycler.layoutManager =
+            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+        //boton
+        binding.botonAdd.setOnClickListener {
+            adapterRecycler.addReserva(
+                Reservas(
+                    ciudadOrigen.texto,
+                    ciudadOrigen.imagen,
+                    ciudadDestino.texto,
+                    ciudadDestino.imagen,
+                    "${diaO}/${mesO}/${anioO}",
+                    "${horaO}:${minutosO}"
+                )
+            )
         }
     }
 
@@ -104,8 +127,6 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
             minutosD = minute
             binding.textoDestino.text = "${diaD}/${mesD}/${anioD} ${horaD}:${minutosD}"
             origen = false
-        } else {
-            Snackbar.make(binding.root, "La fecha no puede ser mayor", Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -113,12 +134,15 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         when (parent!!.id) {
             binding.spinnerOrigen.id -> {
                 textoOrigen = binding.spinnerOrigen.adapter.getItem(position).toString()
-                Log.v("textoOrigen", textoOrigen)
+
+                ciudadOrigen = arrayCiudad.filter { it.texto == textoOrigen } as Ciudades
 
             }
             binding.spinnerDestino.id -> {
                 textoDestino = binding.spinnerDestino.adapter.getItem(position).toString()
-                Log.v("textoDestino", textoDestino)
+
+                ciudadDestino = arrayCiudad.filter { it.texto == textoDestino } as Ciudades
+
             }
         }
     }
@@ -126,4 +150,11 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
+
+    override fun onRecyclerSelected(reservas: Reservas) {
+
+        DialogoDetalles.newInstance(reservas).show(supportFragmentManager, null)
+    }
+
+
 }

@@ -9,33 +9,36 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.t5_reservas.R
-import com.example.t5_reservas.model.Ciudades
+import com.example.t5_reservas.model.Reservas
 
-class AdapterRecycler(var lista:ArrayList<Ciudades>,var context: Context):RecyclerView.Adapter<AdapterRecycler.MyHolder>() {
+class AdapterRecycler(var lista: ArrayList<Reservas>, var context: Context) :
+    RecyclerView.Adapter<AdapterRecycler.MyHolder>() {
 
-    private  var listener: OnRecyclerListener
+
+    private var listener: OnRecyclerListener
 
     init {
         listener = context as OnRecyclerListener
     }
 
-    inner class MyHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        lateinit var imagenOrigen: ImageView
-        lateinit var imagenDestino: ImageView
-        lateinit var textoOrigenDestino: TextView
-        lateinit var bontDetalle: Button
+
+    inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var imagenOrigen: ImageView
+        var imagenDestino: ImageView
+        var textoOrigenDestino: TextView
+        var bontonDetalle: Button
 
         init {
             imagenOrigen = itemView.findViewById(R.id.imagen_origen)
             imagenDestino = itemView.findViewById(R.id.imagen_destino)
             textoOrigenDestino = itemView.findViewById(R.id.texto_item_recycler)
-
+            bontonDetalle = itemView.findViewById(R.id.boton_detalles)
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.item_recycler,parent,false)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
         return MyHolder(view)
 
     }
@@ -45,16 +48,25 @@ class AdapterRecycler(var lista:ArrayList<Ciudades>,var context: Context):Recycl
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        val ciudad = lista[position]
-        holder.imagenOrigen.setImageResource(ciudad.imagen)
-        holder.imagenDestino.setImageResource(ciudad.imagen)
-        holder.textoOrigenDestino.text = "${ciudad.texto}-${ciudad.texto}"
+        val reservas = lista[position]
+        holder.imagenOrigen.setImageResource(reservas.imagen0)
+        holder.imagenDestino.setImageResource(reservas.imagenD)
+        holder.textoOrigenDestino.text = "${reservas.nombreO}-${reservas.nombreD}"
 
-        holder.bontDetalle.setOnClickListener {
-            listener.onRecyclerSelected(ciudad)
+        holder.bontonDetalle.setOnClickListener {
+            listener.onRecyclerSelected(reservas)
         }
     }
-    interface OnRecyclerListener{
-        fun onRecyclerSelected(ciudad: Ciudades)
+
+    fun addReserva(reservas: Reservas){
+        this.lista.add(reservas)
+        notifyItemInserted(lista.size-1)
     }
+
+
+    interface OnRecyclerListener {
+        fun onRecyclerSelected(reservas: Reservas)
+    }
+
+
 }
