@@ -44,10 +44,9 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     private var anioD: Int = 0
     private var origen = false
 
-    private lateinit var ciudadOrigen: Ciudades
+    private lateinit var ciudadOrigen: ArrayList<Ciudades>
     private lateinit var ciudadDestino: Ciudades
     private lateinit var textoOrigen: String
-    private lateinit var textoDestino: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,12 +63,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         )
         //spinner
         arrayCiudad = ArrayList()
-        arrayCiudad.add(Ciudades(R.drawable.madrid, "Madrid"))
-        arrayCiudad.add(Ciudades(R.drawable.barcelona, "Barcelona"))
         arrayCiudad.add(Ciudades(R.drawable.londres, "Londres"))
+        arrayCiudad.add(Ciudades(R.drawable.barcelona, "Barcelona"))
+        arrayCiudad.add(Ciudades(R.drawable.madrid, "Madrid"))
+        arrayCiudad.add(Ciudades(R.drawable.miami, "Miami"))
         arrayCiudad.add(Ciudades(R.drawable.newyork, "New York"))
         arrayCiudad.add(Ciudades(R.drawable.sanfrancisco, "San Francisco"))
-        arrayCiudad.add(Ciudades(R.drawable.miami, "Miami"))
         adaptadorCiudad = AdapterSpinner(arrayCiudad, applicationContext)
         binding.spinnerDestino.adapter = adaptadorCiudad
 
@@ -92,8 +91,8 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         binding.botonAdd.setOnClickListener {
             adapterRecycler.addReserva(
                 Reservas(
-                    ciudadOrigen.texto,
-                    ciudadOrigen.imagen,
+                    ciudadOrigen.toString(),
+                    ciudadDestino.imagen,
                     ciudadDestino.texto,
                     ciudadDestino.imagen,
                     "${diaO}/${mesO}/${anioO}",
@@ -134,14 +133,34 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         when (parent!!.id) {
             binding.spinnerOrigen.id -> {
                 textoOrigen = binding.spinnerOrigen.adapter.getItem(position).toString()
-
-                ciudadOrigen = arrayCiudad.filter { it.texto == textoOrigen } as Ciudades
+                Log.v("origen",textoOrigen)
+                ciudadOrigen = arrayCiudad.filter { it.texto == textoOrigen } as ArrayList<Ciudades>
+                /*
+                when(position){
+                    0->{
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Londres" } as ArrayList<Ciudades>
+                    }
+                    1->{
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Barcelona" } as ArrayList<Ciudades>
+                    }
+                    2->{
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Madrid" } as ArrayList<Ciudades>
+                    }
+                    3->{
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Miami" } as ArrayList<Ciudades>
+                    }
+                    4->{
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "New York" } as ArrayList<Ciudades>
+                    }
+                    5->{
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "San Francisco" } as ArrayList<Ciudades>
+                    }
+                } */
 
             }
             binding.spinnerDestino.id -> {
-                textoDestino = binding.spinnerDestino.adapter.getItem(position).toString()
-
-                ciudadDestino = arrayCiudad.filter { it.texto == textoDestino } as Ciudades
+                ciudadDestino = binding.spinnerDestino.adapter.getItem(position) as Ciudades
+                Log.v("destino",ciudadDestino.toString())
             }
         }
     }
@@ -151,7 +170,6 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     }
 
     override fun onRecyclerSelected(reservas: Reservas) {
-
         DialogoDetalles.newInstance(reservas).show(supportFragmentManager, null)
     }
 
