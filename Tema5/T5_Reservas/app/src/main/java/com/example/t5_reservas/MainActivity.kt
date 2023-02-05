@@ -138,22 +138,22 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                 /*
                 when(position){
                     0->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Londres" } as ArrayList<Ciudades>
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Londres" } as Ciudades
                     }
                     1->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Barcelona" } as ArrayList<Ciudades>
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Barcelona" } as Ciudades
                     }
                     2->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Madrid" } as ArrayList<Ciudades>
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Madrid" } as Ciudades
                     }
                     3->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Miami" } as ArrayList<Ciudades>
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "Miami" } as Ciudades
                     }
                     4->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "New York" } as ArrayList<Ciudades>
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "New York" } as Ciudades
                     }
                     5->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "San Francisco" } as ArrayList<Ciudades>
+                        ciudadOrigen = arrayCiudad.filter { it.texto == "San Francisco" } as Ciudades
                     }
                 } */
 
