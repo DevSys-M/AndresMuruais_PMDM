@@ -142,7 +142,6 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                 textoDestino = binding.spinnerDestino.adapter.getItem(position).toString()
 
                 ciudadDestino = arrayCiudad.filter { it.texto == textoDestino } as Ciudades
-
             }
         }
     }
