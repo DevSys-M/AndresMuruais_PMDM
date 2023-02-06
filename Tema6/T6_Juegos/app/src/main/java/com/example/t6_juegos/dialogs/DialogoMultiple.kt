@@ -17,7 +17,7 @@ class DialogoMultiple: DialogFragment() {
         selecciones = ArrayList()
 
         val builder = AlertDialog.Builder(requireContext())
-        val elementos = arrayOf("PS5", "PS4", "XBOX", "SGE", "PC")
+        val elementos = arrayOf("PS5", "PS4", "XBOX", "switch", "PC")
 
         builder.setTitle("Seleccion de Plataforma")
         builder.setMultiChoiceItems(elementos,null, DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
@@ -36,5 +36,7 @@ class DialogoMultiple: DialogFragment() {
     }
     interface OnMultipleListener{
         fun onMultipleSelected(lista: ArrayList<String>)
+
+
     }
 }

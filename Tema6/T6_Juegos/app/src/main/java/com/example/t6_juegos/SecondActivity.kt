@@ -15,5 +15,11 @@ class SecondActivity : AppCompatActivity() {
         binding= ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
         juegoRecuperado = intent.extras?.getSerializable("juegos") as Juegos
+
+        binding.secondImagen.setImageResource(juegoRecuperado.imagen)
+        binding.secondNombre.text = juegoRecuperado.nombre
+        binding.secondCategoria.text = juegoRecuperado.categoria
+        binding.secondPlataforma.text = juegoRecuperado.plataforma
+        binding.secondPrecio.text = juegoRecuperado.precio.toString()
     }
 }

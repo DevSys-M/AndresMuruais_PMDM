@@ -40,6 +40,7 @@ class DialogoDetalles : DialogFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         vista = LayoutInflater.from(context).inflate(R.layout.item_dialogo, null)
+        reservas= (this.arguments?.getSerializable("reserva")?: "Reserva") as Reservas
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -53,7 +54,7 @@ class DialogoDetalles : DialogFragment() {
         nombreO = vista.findViewById(R.id.texto_origen)
         nombreD = vista.findViewById(R.id.texto_destino)
         fecha = vista.findViewById(R.id.texto_fecha_inicio)
-        hora = vista.findViewById(R.id.texto_fecha_inicio)
+        hora = vista.findViewById(R.id.texto_hora_inicio)
         linear = vista.findViewById(R.id.item_linear)
     }
 

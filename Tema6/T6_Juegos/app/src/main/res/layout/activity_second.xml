@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/second_precio" />
 
     <TextView
-        android:id="@+id/precio_detalle"
+        android:id="@+id/second_categoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Categoria"
@@ -54,7 +54,7 @@
         android:id="@+id/second_precio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tipo"
+        android:text="Precio"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

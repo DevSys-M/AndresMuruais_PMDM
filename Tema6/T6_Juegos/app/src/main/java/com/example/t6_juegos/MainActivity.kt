@@ -1,12 +1,13 @@
 package com.example.t6_juegos
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.t6_juegos.adapters.AdapterRecycler
 import com.example.t6_juegos.databinding.ActivityMainBinding
 import com.example.t6_juegos.dialogs.DialogoMultiple
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity(),DialogoMultiple.OnMultipleListener {
 
     lateinit var adapterRecycler: AdapterRecycler
 
+    lateinit var filtroPlataforma: String
+
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -75,6 +80,10 @@ class MainActivity : AppCompatActivity(),DialogoMultiple.OnMultipleListener {
     }
 
     override fun onMultipleSelected(lista: ArrayList<String>) {
-            //adapterRecycler.filtarJuego(lista.toString())
+        lista.forEach { elemento-> adapterRecycler.filtarJuego(elemento)
+            //Log.v("plataforma")
+        }
+
+
     }
 }
