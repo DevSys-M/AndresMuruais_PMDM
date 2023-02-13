@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     private var anioD: Int = 0
     private var origen = false
 
-    private lateinit var ciudadOrigen: ArrayList<Ciudades>
+    private lateinit var ciudadOrigen: Ciudades
     private lateinit var ciudadDestino: Ciudades
     private lateinit var textoOrigen: String
 
@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         binding.botonAdd.setOnClickListener {
             adapterRecycler.addReserva(
                 Reservas(
-                    ciudadOrigen.toString(),
-                    ciudadDestino.imagen,
+                    ciudadOrigen.texto,
+                    ciudadOrigen.imagen,
                     ciudadDestino.texto,
                     ciudadDestino.imagen,
                     "${diaO}/${mesO}/${anioO}",
@@ -104,15 +104,15 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         DialogoHora().show(supportFragmentManager, null)
+        if (!origen) {
         diaO = dayOfMonth
-        mesO = month
+        mesO = month + 1
         anioO = year
-
+        } else if (origen) {
         diaD = dayOfMonth
-        mesD = month
+        mesD = month + 1
         anioD = year
-
-
+        }
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
@@ -133,29 +133,8 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         when (parent!!.id) {
             binding.spinnerOrigen.id -> {
                 textoOrigen = binding.spinnerOrigen.adapter.getItem(position).toString()
-                Log.v("origen",textoOrigen)
-                ciudadOrigen = arrayCiudad.filter { it.texto == textoOrigen } as ArrayList<Ciudades>
-                /*
-                when(position){
-                    0->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Londres" } as Ciudades
-                    }
-                    1->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Barcelona" } as Ciudades
-                    }
-                    2->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Madrid" } as Ciudades
-                    }
-                    3->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "Miami" } as Ciudades
-                    }
-                    4->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "New York" } as Ciudades
-                    }
-                    5->{
-                        ciudadOrigen = arrayCiudad.filter { it.texto == "San Francisco" } as Ciudades
-                    }
-                } */
+                ciudadOrigen = arrayCiudad.find{ it.texto == textoOrigen } as Ciudades
+                Log.v("ciudadOrigen",ciudadOrigen.toString())
 
             }
             binding.spinnerDestino.id -> {

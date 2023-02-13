@@ -7,15 +7,15 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_weight="0.75"
         android:textSize="20sp"
         android:gravity="center_vertical"
-        android:text="Aplication Fragmetn"/>
+        android:text="Aplication Fragment"/>
 
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="0.25"
         android:id="@+id/boton_statico"
         android:text="Pulsar"/>
 

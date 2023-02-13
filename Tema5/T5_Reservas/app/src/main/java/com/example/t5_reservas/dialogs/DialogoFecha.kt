@@ -10,7 +10,7 @@ class DialogoFecha : DialogFragment() {
 
 
     private var dia: Int = 0
-    private var mes: Int = 0
+    private var mes: Int = 1
     private var anio: Int = 0
 
     companion object {
