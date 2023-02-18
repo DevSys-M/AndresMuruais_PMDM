@@ -27,6 +27,8 @@ class SecondFragment : Fragment() {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
 
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +36,16 @@ class SecondFragment : Fragment() {
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
+
+
+
+        binding.buttonFragmentPerso.setOnClickListener {
+            val bundle: Bundle = Bundle()
+            bundle.putString("nombre","Pedro")
+            bundle.putString("correo","pedro@gmail.com")
+            bundle.putInt("edad",20)
+            findNavController().navigate(R.id.action_SecondFragment_to_thirdFragment,bundle)
         }
     }
 

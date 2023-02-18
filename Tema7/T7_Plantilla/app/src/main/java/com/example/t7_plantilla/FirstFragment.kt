@@ -35,6 +35,15 @@ class FirstFragment : Fragment() {
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        binding.buttonSecond.setOnClickListener {
+            val bundle: Bundle = Bundle()
+            bundle.putString("nombre","Andres")
+            bundle.putString("correo","amuru@gmail.com")
+            bundle.putInt("edad",38)
+            findNavController().navigate(R.id.action_FirstFragment_to_thirdFragment,bundle)
+        }
+
     }
 
     override fun onDestroyView() {
