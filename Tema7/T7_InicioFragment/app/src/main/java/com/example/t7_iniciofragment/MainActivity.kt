@@ -9,7 +9,7 @@ import com.example.t7_iniciofragment.fragments.FragmentBanner
 import com.example.t7_iniciofragment.fragments.FragmentDetalle
 import com.example.t7_iniciofragment.fragments.FragmentNombre
 
-class MainActivity : AppCompatActivity(), OnClickListener,FragmentNombre.OnFragmentNombre {
+class MainActivity : AppCompatActivity(), OnClickListener {
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +43,5 @@ class MainActivity : AppCompatActivity(), OnClickListener,FragmentNombre.OnFragm
 
            }
        }
-    }
-
-    override fun onNombreSelect(nombre: String) {
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(binding.sitioFragments.id, FragmentDetalle.newInstance(nombre))
-        ft.addToBackStack("")
-        ft.commit()
     }
 }
