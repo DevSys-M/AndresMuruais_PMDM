@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), DialogoAdd.OnDialogoAdd, AdaptadorAsig
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         // cambios en el toolbar
-        supportActionBar?.title = "Cambio en el titulo"
+        supportActionBar?.title = "Cambio de titulo"
         adaptador = AdaptadorAsignaturas(ArrayList<Asignatura>(),this)
 
         // binding.recyclerAsignaturas --> grafico
