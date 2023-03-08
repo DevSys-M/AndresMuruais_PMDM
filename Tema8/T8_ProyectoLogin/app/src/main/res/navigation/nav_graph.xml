@@ -7,22 +7,40 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.t8_proyectologin.FirstFragment"
+        android:name="com.example.t8_proyectologin.LoginFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_secondActivity"
+            app:destination="@id/secondActivity" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.t8_proyectologin.SecondFragment"
+        android:name="com.example.t8_proyectologin.RegisterFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_register">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <activity
+        android:id="@+id/secondActivity"
+        android:name="com.example.t8_proyectologin.SecondActivity"
+        android:label="activity_second"
+        tools:layout="@layout/activity_second" >
+        <argument
+            android:name="nombre"
+            app:argType="string" />
+        <argument
+            android:name="edad"
+            app:argType="integer" />
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </activity>
 </navigation>
