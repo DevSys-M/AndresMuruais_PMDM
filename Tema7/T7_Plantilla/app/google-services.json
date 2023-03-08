@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "951151655408",
+    "firebase_url": "https://pdpm-projects-579aa-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "pdpm-projects-579aa",
+    "storage_bucket": "pdpm-projects-579aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951151655408:android:94c1c7bacd1e8019f5c535",
+        "android_client_info": {
+          "package_name": "com.example.t7_plantilla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951151655408-fcvagiqe6qvviv358rvs65cu6p6ihi8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtRZjwNI9cH-sxjY4U0IzcgYXCsMrO0nA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951151655408-fcvagiqe6qvviv358rvs65cu6p6ihi8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
