@@ -28,13 +28,15 @@ class SecondActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
 
         adapterRecycler = AdapterRecycler(applicationContext)
-
+        binding.recyclerProductos.adapter = adapterRecycler
         binding.recyclerProductos.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
 
         val uid = intent.extras!!.getString("uid")
         val nombre = intent.extras!!.getString("nombre")
         val edad = intent.extras!!.getString("edad")
+
         val referencia = dataBase.getReference("usuarios").child(uid!!)
+
         referencia.child("datos").child("nombre").setValue(nombre)
         referencia.child("datos").child("edad").setValue(edad)
 
@@ -49,13 +51,13 @@ class SecondActivity : AppCompatActivity() {
             //referenciaProductos.child("ordendor").child("valor").setValue(123)
             referenciaProductos.child("coche").setValue(Producto("coche",123534))
 
+            // agregar datos a la base de datos
             //val referencia = dataBase.getReference("usuarios").child("usuario2")
             //referencia.child("dni").setValue("12312312")
             //referencia.child("experiencia").setValue(false)
         }
 
         binding.botonConsultar.setOnClickListener {
-
             referencia.child("productos").addValueEventListener(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     //Log.v("base_datos",snapshot.key.toString())
@@ -63,7 +65,8 @@ class SecondActivity : AppCompatActivity() {
                         //Log.v("base_datos",item.key.toString())
 
                         val producto = item.getValue(Producto::class.java)
-                        adapterRecycler.agregarProducto(producto!!)
+                       // adapterRecycler.agregarProducto(producto!!)
+                        adapterRecycler.verProductos(producto!!)
                         Log.v("base_datos","Producto ${producto!!.nombre} ${producto!!.valor}")
 
                         /*

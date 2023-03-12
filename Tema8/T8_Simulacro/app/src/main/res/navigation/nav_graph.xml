@@ -7,29 +7,30 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.t8_proyectologin.LoginFragment"
+        android:name="com.example.t8_simulacro.LoginFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_login">
+        tools:layout="@layout/fragment_first">
 
-        <action
-            android:id="@+id/action_FirstFragment_to_secondActivity"
-            app:destination="@id/secondActivity" />
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_secondActivity"
+            app:destination="@id/secondActivity" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.t8_proyectologin.RegisterFragment"
+        android:name="com.example.t8_simulacro.RegisterFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_register">
+        tools:layout="@layout/fragment_second">
+
         <action
-            android:id="@+id/action_SecondFragment_to_secondActivity"
-            app:destination="@id/secondActivity" />
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
     <activity
         android:id="@+id/secondActivity"
-        android:name="com.example.t8_proyectologin.SecondActivity"
+        android:name="com.example.t8_simulacro.SecondActivity"
         android:label="activity_second"
         tools:layout="@layout/activity_second" >
         <argument
