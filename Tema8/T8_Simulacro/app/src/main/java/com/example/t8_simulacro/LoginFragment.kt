@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.t8_simulacro.databinding.FragmentFirstBinding
 import com.example.t8_simulacro.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -61,7 +60,7 @@ class LoginFragment : Fragment() {
                         bundle.putInt("edad",-1)
                         findNavController().navigate(R.id.action_FirstFragment_to_secondActivity)
                     }else{
-                        Snackbar.make(binding.botonLogin,"Datos errononeos",Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(binding.botonLogin,"Datos erroneos",Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -46,10 +46,8 @@ class AdapterRecycler(var context: Context): RecyclerView.Adapter<AdapterRecycle
         notifyItemInserted(listaProducto.size-1)
     }
 
-    fun verProductos(producto: Producto){
-        this.listaProducto.add(producto)
-        notifyDataSetChanged()
-    }
+
+
 
     //1 Holder
     class MyHolder(itemView: View): RecyclerView.ViewHolder(itemView){

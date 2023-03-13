@@ -65,8 +65,8 @@ class SecondActivity : AppCompatActivity() {
                         //Log.v("base_datos",item.key.toString())
 
                         val producto = item.getValue(Producto::class.java)
-                       // adapterRecycler.agregarProducto(producto!!)
-                        adapterRecycler.verProductos(producto!!)
+                        adapterRecycler.agregarProducto(producto!!)
+                       // adapterRecycler.verProductos(producto!!)
                         Log.v("base_datos","Producto ${producto!!.nombre} ${producto!!.valor}")
 
                         /*
