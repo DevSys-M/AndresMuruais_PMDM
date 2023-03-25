@@ -34,7 +34,7 @@ class SecondFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        adaptadorProducto =
+        adaptadorProducto = AdaptadorProducto(context)
 
     }
 
