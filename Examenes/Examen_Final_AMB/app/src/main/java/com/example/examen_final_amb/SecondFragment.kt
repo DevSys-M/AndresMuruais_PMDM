@@ -1,5 +1,6 @@
 package com.example.examen_final_amb
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
