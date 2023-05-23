@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RetApp</string>
+    <string name="enter_email">Introduzca email</string>
+    <string name="enter_password">Introduzca contraseña</string>
+    <string name="login">Login</string>
+    <string name="reset_password">Restablecer Contraseña</string>
+    <string name="enter_name">Introduzca nombre de usuario</string>
+    <string name="confirm_password">Confirme Contraseña</string>
+    <string name="signup">Registrarse</string>
+    <string name="enter_correct_email">Introduce un email correcto</string>
+    <string name="password_mismatch">Las contraseñas no coinciden</string>
+    <string name="user_created_successfully">nuevo Usuario creado</string>
+    <string name="signup_failed">Fallo de registro:  %1$s</string>
+    <string name="donthave_account">No tiene retacuenta?  </string>
+    <string name="failed_to_update_profile"> Fallo al actualizar perfil : %1$s!</string>
+    <string name="permission_required">Se necesitan permisos</string>
+    <string name="Save">Guardar cambios</string>
+    <string name="logout">Cerrar sesion</string>
+    <string name="change_picture">Actualizar Imagen</string>
+    <string name="remove_picture">Quitar Imagen</string>
+    <string name="password_changed_succesfully">Contraseña cambiada correctamente</string>
+    <string name="something_went_wrong">Algo salio mal: %1$s</string>
+    <string name="reset_password_instructions">Se enviaron instrucciones al email: %1$s</string>
+    <string name="retry">Reintentar</string>
+    <string name="close">Cerrar</string>
+    <string name="email_sent_failed">Fallo al enviar Email</string>
+    <string name="loading">Por favor, espere...</string>
+    <string name="no_internet"> Compruebe su conexion a Internet</string>
+</resources>

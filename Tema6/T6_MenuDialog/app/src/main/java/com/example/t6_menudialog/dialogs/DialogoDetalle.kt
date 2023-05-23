@@ -1,5 +1,6 @@
 package com.example.t6_menudialog.dialogs
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "65229656652",
+    "project_id": "retapp-43e84",
+    "storage_bucket": "retapp-43e84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65229656652:android:63da48ab6ef4da9ea15ae9",
+        "android_client_info": {
+          "package_name": "com.example.retapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65229656652-0erbncf28csk6od6f9klj986n02oj83j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB35v7dTyaIQVQpoQdpKX8BwXqdCrw3BBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65229656652-0erbncf28csk6od6f9klj986n02oj83j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
