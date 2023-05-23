@@ -7,9 +7,15 @@
     android:padding="10dp"
     tools:context=".FirstFragment">
 
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        android:id="@+id/compactCalendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCalendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/compactCalendarView"/>
 
 </LinearLayout>

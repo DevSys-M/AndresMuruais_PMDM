@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.demoapp.adapter.AdaptadorCalendario
 import com.example.demoapp.databinding.FragmentFirstBinding
+import com.github.sundeepk.compactcalendarview.CompactCalendarView
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,6 +25,7 @@ class FirstFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adaptadorCalendario: AdaptadorCalendario
+    private lateinit var compactCalendarView: CompactCalendarView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,4 +68,5 @@ class FirstFragment : Fragment() {
 
         return days
     }
+
 }
