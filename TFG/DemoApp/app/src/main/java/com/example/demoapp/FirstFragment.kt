@@ -11,12 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.demoapp.adapter.AdaptadorCalendario
 import com.example.demoapp.databinding.FragmentFirstBinding
+import com.example.demoapp.dialog.AddEventDialog
+import com.example.demoapp.dialog.EventDetailDialog
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener,
+    AddEventDialog.OnEventAddedListener, EventDetailDialog.OnEventAddedListener {
 
     private var _binding: FragmentFirstBinding? = null
 
@@ -26,6 +29,9 @@ class FirstFragment : Fragment() {
 
     private lateinit var adaptadorCalendario: AdaptadorCalendario
     private lateinit var compactCalendarView: CompactCalendarView
+
+    private lateinit var addEventDialog: AddEventDialog
+    private lateinit var eventDetailDialog: EventDetailDialog
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,7 +44,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        adaptadorCalendario.setOnDateClickListener(this)
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -68,5 +74,21 @@ class FirstFragment : Fragment() {
 
         return days
     }
+    override fun onDateClick(day: Int) {
+        addEventDialog = AddEventDialog(this)
+        addEventDialog.show(requireActivity().supportFragmentManager, "addEventDialog")
+    }
+
+    override fun onDateLongClick(day: Int) {
+        val events = adaptadorCalendario.getEventsForDay(day)
+        eventDetailDialog = EventDetailDialog(events)
+        eventDetailDialog.show(requireActivity().supportFragmentManager, "eventDetailDialog")
+    }
+
+
+    override fun onEventAdded(eventText: String) {
+        TODO("Not yet implemented")
+    }
+
 
 }
