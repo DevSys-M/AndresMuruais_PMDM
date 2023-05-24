@@ -8,80 +8,63 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapp.R
-import com.example.demoapp.databinding.ItemCalendarioBinding
 
 class AdaptadorCalendario(
     private val context: Context,
     private val onDateClickListener: OnDateClickListener
-) : RecyclerView.Adapter<AdaptadorCalendario.ViewHolder>() {
+) : RecyclerView.Adapter<AdaptadorCalendario.CalendarioViewHolder>() {
 
-    private val dates: MutableList<String> = mutableListOf()
-    private val events: MutableMap<String, String> = mutableMapOf()
+    private val eventMap: MutableMap<String, MutableList<String>> = mutableMapOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCalendarioBinding.inflate(LayoutInflater.from(context), parent, false)
-        return ViewHolder(binding)
+    fun addEvent(date: String, event: String) {
+        if (eventMap.containsKey(date)) {
+            eventMap[date]?.add(event)
+        } else {
+            eventMap[date] = mutableListOf(event)
+        }
+        notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val date = dates[position]
-        val eventText = events[date]
+    fun getAllEvents(): Map<String, List<String>> {
+        return eventMap
+    }
 
-        holder.bind(date, eventText)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarioViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.item_calendario, parent, false)
+        return CalendarioViewHolder(view)
+    }
 
-        holder.itemView.setOnClickListener {
-            onDateClickListener.onDateClick(date)
-        }
-
-        holder.itemView.setOnLongClickListener {
-            if (eventText != null) {
-                val backgroundColor = Color.parseColor("#FFFF00")
-                holder.itemView.setBackgroundColor(backgroundColor)
-                true
-            } else {
-                false
-            }
-        }
+    override fun onBindViewHolder(holder: CalendarioViewHolder, position: Int) {
+        val date = eventMap.keys.toList()[position]
+        holder.bind(date, eventMap[date])
     }
 
     override fun getItemCount(): Int {
-        return dates.size
+        return eventMap.size
     }
 
-    fun addDates(datesList: List<String>) {
-        dates.clear()
-        dates.addAll(datesList)
-        notifyDataSetChanged()
-    }
+    inner class CalendarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val txtDate: TextView = itemView.findViewById(R.id.txtDate)
 
-    fun addEvent(date: String, eventText: String) {
-        events[date] = eventText
-        notifyDataSetChanged()
-    }
+        init {
+            itemView.setOnClickListener {
+                val date = eventMap.keys.toList()[adapterPosition]
+                onDateClickListener.onDateClick(date)
+            }
+        }
 
-    fun getEvent(date: String): String? {
-        return events[date]
-    }
+        fun bind(date: String, events: List<String>?) {
+            txtDate.text = date
 
-    fun getAllEvents(): Map<String, String> {
-        return events
+            if (events != null && events.isNotEmpty()) {
+                txtDate.setTextColor(Color.YELLOW)
+            } else {
+                txtDate.setTextColor(Color.BLACK)
+            }
+        }
     }
 
     interface OnDateClickListener {
         fun onDateClick(date: String)
     }
-
-    inner class ViewHolder(private val binding: ItemCalendarioBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(date: String, eventText: String?) {
-            binding.textDate.text = date
-            if (eventText != null) {
-                binding.textEvent.visibility = View.VISIBLE
-                binding.textEvent.text = eventText
-            } else {
-                binding.textEvent.visibility = View.GONE
-            }
-        }
-    }
 }
-
