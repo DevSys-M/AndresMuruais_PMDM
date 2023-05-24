@@ -20,7 +20,7 @@
         android:padding="8dp"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:background="@drawable/backgroun_yellow_circle"
+        android:background="@drawable/background_yellow_circle"
         android:visibility="gone" />
 
 </LinearLayout>
