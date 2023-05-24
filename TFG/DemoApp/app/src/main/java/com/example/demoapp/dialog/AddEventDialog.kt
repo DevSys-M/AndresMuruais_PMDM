@@ -1,65 +1,64 @@
 package com.example.demoapp.dialog
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.example.demoapp.R
+import com.example.demoapp.databinding.DialogAddEventBinding
 
 class AddEventDialog : DialogFragment() {
 
-    private var onEventAddedListener: OnEventAddedListener? = null
+    private var _binding: DialogAddEventBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var onEventAddedListener: OnEventAddedListener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val inflater = LayoutInflater.from(requireContext())
-        val view = inflater.inflate(R.layout.dialog_add_event, null)
+        _binding = DialogAddEventBinding.inflate(LayoutInflater.from(context))
 
-        val editTextEvent = view.findViewById<EditText>(R.id.editTextEvent)
-        val buttonAdd = view.findViewById<Button>(R.id.buttonAdd)
-        val buttonCancel = view.findViewById<Button>(R.id.buttonCancel)
+        val date = arguments?.getString(ARG_DATE)
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle(R.string.dialog_title_add_event)
-            .setView(view)
+            .setTitle("Agregar evento")
+            .setView(binding.root)
+            .setPositiveButton("Agregar") { _, _ ->
+                val eventText = binding.editTextEvent.text.toString()
+                if (eventText.isNotEmpty() && date != null) {
+                    onEventAddedListener.onEventAdded(date, eventText)
+                }
+            }
+            .setNegativeButton("Cancelar", null)
             .create()
 
-        buttonAdd.setOnClickListener {
-            val eventText = editTextEvent.text.toString().trim()
-            if (eventText.isNotEmpty()) {
-                onEventAddedListener?.onEventAdded(eventText)
-                dismiss()
-            }
-        }
-
-        buttonCancel.setOnClickListener {
-            dismiss()
-        }
-
-        dialog.setOnShowListener {
-            editTextEvent.requestFocus()
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(editTextEvent, InputMethodManager.SHOW_IMPLICIT)
-        }
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
 
         return dialog
     }
 
-    interface OnEventAddedListener {
-        fun onEventAdded(eventText: String)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun setOnEventAddedListener(listener: OnEventAddedListener) {
         onEventAddedListener = listener
     }
 
+    interface OnEventAddedListener {
+        fun onEventAdded(date: String, eventText: String)
+    }
+
     companion object {
-        fun newInstance(): AddEventDialog {
-            return AddEventDialog()
+        private const val ARG_DATE = "date"
+
+        fun newInstance(date: String): AddEventDialog {
+            val dialog = AddEventDialog()
+            val args = Bundle()
+            args.putString(ARG_DATE, date)
+            dialog.arguments = args
+            return dialog
         }
     }
 }

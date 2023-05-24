@@ -1,20 +1,17 @@
 package com.example.demoapp
 
-import android.content.Context
-import android.icu.util.Calendar
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.demoapp.adapter.AdaptadorCalendario
 import com.example.demoapp.databinding.FragmentFirstBinding
 import com.example.demoapp.dialog.AddEventDialog
 import com.example.demoapp.dialog.EventDetailDialog
-import com.github.sundeepk.compactcalendarview.CompactCalendarView
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -61,14 +58,15 @@ class FirstFragment : Fragment(),  AdaptadorCalendario.OnDateClickListener, AddE
 
     }
     override fun onDateClick(date: String) {
-        val addEventDialog = AddEventDialog.newInstance()
+        val addEventDialog = AddEventDialog.newInstance(date)
         addEventDialog.setOnEventAddedListener(this)
         addEventDialog.show(childFragmentManager, "AddEventDialog")
     }
 
-    override fun onEventAdded(eventText: String) {
-        adaptadorCalendario.addEvent(eventText)
+    override fun onEventAdded(date: String, eventText: String) {
+        adaptadorCalendario.addEvent(date, eventText)
     }
+
 
     override fun onEventDetailDismissed() {
         // Aquí puedes realizar alguna acción después de cerrar el diálogo de detalles del evento
