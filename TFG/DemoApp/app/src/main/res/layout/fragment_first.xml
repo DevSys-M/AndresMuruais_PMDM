@@ -6,11 +6,12 @@
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".FirstFragment">
-
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
-        android:id="@+id/compactCalendarView"
+    <Button
+        android:id="@+id/buttonShowEvents"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Mostrar Eventos" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCalendar"
