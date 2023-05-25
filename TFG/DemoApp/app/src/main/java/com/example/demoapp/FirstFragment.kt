@@ -54,13 +54,12 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
     }
 
     override fun onDateClick(date: String) {
-        val addEventDialog = AddEventDialog.newInstance(date)
-        addEventDialog.setOnEventAddedListener(this)
-        addEventDialog.show(childFragmentManager, "AddEventDialog")
+        Toast.makeText(requireContext(), "Fecha seleccionada: $date", Toast.LENGTH_SHORT).show()
     }
 
     override fun onEventAdded(date: String, eventText: String) {
         adaptadorCalendario.addEvent(date, eventText)
+        adaptadorCalendario.notifyDataSetChanged()
     }
 
     override fun onEventDetailDismissed() {
