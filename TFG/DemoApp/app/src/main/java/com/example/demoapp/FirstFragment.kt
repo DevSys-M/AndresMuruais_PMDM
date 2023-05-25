@@ -32,15 +32,9 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
         super.onViewCreated(view, savedInstanceState)
 
         adaptadorCalendario = AdaptadorCalendario(requireContext(), this)
-        binding.recyclerCalendar.layoutManager = GridLayoutManager(requireContext(), 7)
-        binding.recyclerCalendar.adapter = adaptadorCalendario
-        binding.recyclerCalendar.setHasFixedSize(true)
-
-        val events = adaptadorCalendario.getAllEvents()
-        for ((date, eventList) in events) {
-            for (event in eventList) {
-                adaptadorCalendario.addEvent(date, event)
-            }
+        binding.recyclerCalendar.apply {
+            layoutManager = GridLayoutManager(requireContext(), 7)
+            adapter = adaptadorCalendario
         }
 
         binding.buttonShowEvents.setOnClickListener {
@@ -53,6 +47,7 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
                 Toast.makeText(requireContext(), "No hay eventos", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     override fun onDestroyView() {
