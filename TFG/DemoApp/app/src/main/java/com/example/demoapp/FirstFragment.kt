@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapp.adapter.AdaptadorCalendario
 import com.example.demoapp.databinding.FragmentFirstBinding
 import com.example.demoapp.dialog.AddEventDialog
@@ -31,10 +32,9 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
         super.onViewCreated(view, savedInstanceState)
 
         adaptadorCalendario = AdaptadorCalendario(requireContext(), this)
-        binding.recyclerCalendar .apply {
-            layoutManager = GridLayoutManager(requireContext(), 7)
-            adapter = adaptadorCalendario
-        }
+        val recyclerView: RecyclerView = binding.recyclerCalendar
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
+        recyclerView.adapter = adaptadorCalendario
 
         binding.buttonShowEvents.setOnClickListener {
             val events = adaptadorCalendario.getAllEvents().values.flatten()
