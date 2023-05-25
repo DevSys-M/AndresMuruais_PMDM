@@ -14,19 +14,22 @@ class AdaptadorCalendario(
     private val onDateClickListener: OnDateClickListener
 ) : RecyclerView.Adapter<AdaptadorCalendario.CalendarioViewHolder>() {
 
-    private val eventMap: MutableMap<String, MutableList<String>> = mutableMapOf()
+    private val eventList: MutableList<Pair<String, List<String>>> = mutableListOf()
 
     fun addEvent(date: String, event: String) {
-        if (eventMap.containsKey(date)) {
-            eventMap[date]?.add(event)
+        val existingEntry = eventList.find { it.first == date }
+        if (existingEntry != null) {
+            val updatedEvents = existingEntry.second.toMutableList().apply { add(event) }
+            eventList.remove(existingEntry)
+            eventList.add(date to updatedEvents)
         } else {
-            eventMap[date] = mutableListOf(event)
+            eventList.add(date to listOf(event))
         }
         notifyDataSetChanged()
     }
 
-    fun getAllEvents(): Map<String, List<String>> {
-        return eventMap
+    fun getAllEvents(): List<Pair<String, List<String>>> {
+        return eventList.sortedBy { it.first }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarioViewHolder {
@@ -35,13 +38,12 @@ class AdaptadorCalendario(
     }
 
     override fun onBindViewHolder(holder: CalendarioViewHolder, position: Int) {
-        val date = eventMap.keys.toList()[position]
-        val events = eventMap[date]
+        val (date, events) = eventList[position]
         holder.bind(date, events)
     }
 
     override fun getItemCount(): Int {
-        return eventMap.size
+        return eventList.size
     }
 
     inner class CalendarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -49,15 +51,15 @@ class AdaptadorCalendario(
 
         init {
             itemView.setOnClickListener {
-                val date = eventMap.keys.toList()[adapterPosition]
+                val (date, _) = eventList[adapterPosition]
                 onDateClickListener.onDateClick(date)
             }
         }
 
-        fun bind(date: String, events: List<String>?) {
+        fun bind(date: String, events: List<String>) {
             txtDate.text = date
 
-            if (events != null && events.isNotEmpty()) {
+            if (events.isNotEmpty()) {
                 txtDate.setTextColor(Color.YELLOW)
             } else {
                 txtDate.setTextColor(Color.BLACK)

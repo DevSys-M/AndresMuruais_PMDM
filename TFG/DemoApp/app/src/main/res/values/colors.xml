@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorEventDay">#FFFF00</color>
+    <color name="colorAccent">#845EC2</color>
 </resources>
