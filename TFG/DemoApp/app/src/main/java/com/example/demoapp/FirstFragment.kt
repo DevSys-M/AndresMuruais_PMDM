@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapp.adapter.AdaptadorCalendario
 import com.example.demoapp.databinding.FragmentFirstBinding
 import com.example.demoapp.dialog.AddEventDialog
@@ -31,23 +30,30 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adaptadorCalendario = AdaptadorCalendario(requireContext(), this)
-        binding.recyclerCalendar.apply {
-            layoutManager = GridLayoutManager(requireContext(), 7)
-            adapter = adaptadorCalendario
-        }
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonShowEvents.setOnClickListener {
-            val events = adaptadorCalendario.getAllEvents().values.flatten()
-            if (events.isNotEmpty()) {
-                val eventDetailDialog = EventDetailDialog.newInstance(events)
-                eventDetailDialog.setOnEventDetailDismissedListener(this)
-                eventDetailDialog.show(childFragmentManager, "EventDetailDialog")
-            } else {
-                Toast.makeText(requireContext(), "No hay eventos", Toast.LENGTH_SHORT).show()
-            }
-        }
+            val calendarAdapter = AdaptadorCalendario()
+            recyclerView.adapter = calendarAdapter
 
+            // Configura el layout manager y el divisor de la cuadrícula
+            val gridLayoutManager = GridLayoutManager(requireContext(), 7)
+            recyclerView.layoutManager = gridLayoutManager
+            recyclerView.addItemDecoration(GridSpacingItemDecoration(7, 16, false))
+
+            // Agrega el escuchador de clics en el calendario
+            calendarAdapter.setOnItemClickListener(object : AdaptadorCalendario.OnItemClickListener {
+                override fun onItemClick(day: Int) {
+                    val eventsForDay = calendarAdapter.getEventsForDay(day)
+                    val eventText = calendarAdapter.buildEventText(eventsForDay)
+                    showEventDetailDialog(requireContext(), eventText)
+                }
+
+                override fun onItemLongClick(day: Int) {
+                    showAddEventDialog(requireContext(), day)
+                }
+            })
+        }
     }
 
     override fun onDestroyView() {
@@ -56,12 +62,13 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
     }
 
     override fun onDateClick(date: String) {
-        Toast.makeText(requireContext(), "Fecha seleccionada: $date", Toast.LENGTH_SHORT).show()
+        val addEventDialog = AddEventDialog.newInstance(date)
+        addEventDialog.setOnEventAddedListener(this)
+        addEventDialog.show(childFragmentManager, "AddEventDialog")
     }
 
     override fun onEventAdded(date: String, eventText: String) {
         adaptadorCalendario.addEvent(date, eventText)
-        adaptadorCalendario.notifyDataSetChanged()
     }
 
     override fun onEventDetailDismissed() {

@@ -3,8 +3,10 @@ package com.example.demoapp.dialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.example.demoapp.R
 import com.example.demoapp.databinding.DialogAddEventBinding
 
 class AddEventDialog : DialogFragment() {
@@ -15,27 +17,25 @@ class AddEventDialog : DialogFragment() {
     private lateinit var onEventAddedListener: OnEventAddedListener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogAddEventBinding.inflate(LayoutInflater.from(context))
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = requireActivity().layoutInflater
+        val view = inflater.inflate(R.layout.dialog_add_event, null)
 
-        val date = arguments?.getString(ARG_DATE)
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Agregar evento")
-            .setView(binding.root)
-            .setPositiveButton("Agregar") { _, _ ->
-                val eventText = binding.editTextEvent.text.toString()
-                if (eventText.isNotEmpty() && date != null) {
-                    onEventAddedListener.onEventAdded(date, eventText)
-                }
+        builder.setView(view)
+            .setTitle(R.string.dialog_add_event_title)
+            .setPositiveButton(R.string.dialog_add_event_positive_button) { dialog, _ ->
+                val eventText = view.findViewById<EditText>(R.id.editTextEvent).text.toString()
+                // Aquí puedes realizar la lógica para guardar el evento en la fecha seleccionada
+                // y actualizar el adaptador del calendario si es necesario
+                dialog.dismiss()
             }
-            .setNegativeButton("Cancelar", null)
-            .create()
+            .setNegativeButton(R.string.dialog_add_event_negative_button) { dialog, _ ->
+                dialog.cancel()
+            }
 
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-
-        return dialog
+        return builder.create()
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
