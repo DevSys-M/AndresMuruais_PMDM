@@ -30,29 +30,18 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
+        adaptadorCalendario = AdaptadorCalendario(requireContext(), this)
+        binding.recyclerCalendar.layoutManager = GridLayoutManager(requireContext(), 7)
 
-            val calendarAdapter = AdaptadorCalendario()
-            recyclerView.adapter = calendarAdapter
-
-            // Configura el layout manager y el divisor de la cuadrícula
-            val gridLayoutManager = GridLayoutManager(requireContext(), 7)
-            recyclerView.layoutManager = gridLayoutManager
-            recyclerView.addItemDecoration(GridSpacingItemDecoration(7, 16, false))
-
-            // Agrega el escuchador de clics en el calendario
-            calendarAdapter.setOnItemClickListener(object : AdaptadorCalendario.OnItemClickListener {
-                override fun onItemClick(day: Int) {
-                    val eventsForDay = calendarAdapter.getEventsForDay(day)
-                    val eventText = calendarAdapter.buildEventText(eventsForDay)
-                    showEventDetailDialog(requireContext(), eventText)
-                }
-
-                override fun onItemLongClick(day: Int) {
-                    showAddEventDialog(requireContext(), day)
-                }
-            })
+        binding.buttonShowEvents.setOnClickListener {
+            val events = adaptadorCalendario.getAllEvents().values.flatten()
+            if (events.isNotEmpty()) {
+                val eventDetailDialog = EventDetailDialog.newInstance(events)
+                eventDetailDialog.setOnEventDetailDismissedListener(this)
+                eventDetailDialog.show(childFragmentManager, "EventDetailDialog")
+            } else {
+                Toast.makeText(requireContext(), "No hay eventos", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

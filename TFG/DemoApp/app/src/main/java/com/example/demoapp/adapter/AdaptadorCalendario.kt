@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapp.R
 
@@ -37,8 +36,7 @@ class AdaptadorCalendario(
 
     override fun onBindViewHolder(holder: CalendarioViewHolder, position: Int) {
         val date = eventMap.keys.toList()[position]
-        val events = eventMap[date]
-        holder.bind(date, events)
+        holder.bind(date, eventMap[date])
     }
 
     override fun getItemCount(): Int {
@@ -59,13 +57,12 @@ class AdaptadorCalendario(
             txtDate.text = date
 
             if (events != null && events.isNotEmpty()) {
-                txtDate.setTextColor(ContextCompat.getColor(context, R.color.colorAccent)) // Establecer el color del texto como el color de acento
+                txtDate.setTextColor(Color.YELLOW)
             } else {
-                txtDate.setTextColor(Color.BLACK) // Establecer el color del texto como negro
+                txtDate.setTextColor(Color.BLACK)
             }
         }
     }
-
 
     interface OnDateClickListener {
         fun onDateClick(date: String)
