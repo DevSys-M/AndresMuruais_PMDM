@@ -36,6 +36,13 @@ class FirstFragment : Fragment(), AdaptadorCalendario.OnDateClickListener, AddEv
         binding.recyclerCalendar.adapter = adaptadorCalendario
         binding.recyclerCalendar.setHasFixedSize(true)
 
+        val events = adaptadorCalendario.getAllEvents()
+        for ((date, eventList) in events) {
+            for (event in eventList) {
+                adaptadorCalendario.addEvent(date, event)
+            }
+        }
+
         binding.buttonShowEvents.setOnClickListener {
             val events = adaptadorCalendario.getAllEvents().values.flatten()
             if (events.isNotEmpty()) {

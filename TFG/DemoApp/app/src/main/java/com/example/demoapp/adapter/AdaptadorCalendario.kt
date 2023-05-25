@@ -36,7 +36,8 @@ class AdaptadorCalendario(
 
     override fun onBindViewHolder(holder: CalendarioViewHolder, position: Int) {
         val date = eventMap.keys.toList()[position]
-        holder.bind(date, eventMap[date])
+        val events = eventMap[date]
+        holder.bind(date, events)
     }
 
     override fun getItemCount(): Int {
