@@ -1,32 +1,46 @@
-package com.example.demoapp.dialog
-
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.example.demoapp.R
 
-class EventDetailDialog(context: Context, private val eventosDia: List<String>?) : Dialog(context) {
-    private lateinit var tvEventos: TextView
-    private lateinit var btnCerrar: Button
+class EventDetailDialog : DialogFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_event_detail)
+    companion object {
+        private const val ARG_DAY = "arg_day"
+        private const val ARG_EVENTS = "arg_events"
 
-        tvEventos = findViewById(R.id.textViewEvents)
-        btnCerrar = findViewById(R.id.buttonOk)
-
-        if (eventosDia.isNullOrEmpty()) {
-            tvEventos.text = "No hay eventos para este día."
-        } else {
-            val eventos = eventosDia.joinToString("\n")
-            tvEventos.text = eventos
+        fun newInstance(day: Int, events: List<String>): EventDetailDialog {
+            val dialog = EventDetailDialog()
+            val args = Bundle().apply {
+                putInt(ARG_DAY, day)
+                putStringArrayList(ARG_EVENTS, ArrayList(events))
+            }
+            dialog.arguments = args
+            return dialog
         }
+    }
 
-        btnCerrar.setOnClickListener {
-            dismiss()
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val day = requireArguments().getInt(ARG_DAY)
+        val events = requireArguments().getStringArrayList(ARG_EVENTS) ?: emptyList<String>()
+
+        val eventText = buildEventText(events)
+
+        return AlertDialog.Builder(requireContext())
+            .setTitle("Event Details - Day $day")
+            .setMessage(eventText)
+            .setPositiveButton(R.string.dialog_add_event_positive_button) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+    }
+
+    private fun buildEventText(events: List<String>): String {
+        return if (events.isNotEmpty()) {
+            events.joinToString("\n")
+        } else {
+            "No events for this day"
         }
     }
 }

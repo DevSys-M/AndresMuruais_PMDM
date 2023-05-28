@@ -11,8 +11,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.retapp.chat.ChatFragment
 import com.example.retapp.findfriends.FindFriendsFragment
 import com.example.retapp.profile.ProfileActivity
+import com.example.retapp.requests.RequestsFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

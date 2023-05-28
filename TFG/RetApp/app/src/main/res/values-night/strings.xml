@@ -39,9 +39,23 @@
     <string name="find">Buscar</string>
     <string name="empty_chat_list">La lista de chats aparecerá aquí</string>
     <string name="empty_friends_list">La lista de amigos aparecerá aquí</string>
-    <string name="empty_requests_list">Las solicitudes de contacto aparecerán aquí</string>
+    <string name="empty_requests_list">No tienes solicitudes de pendientes</string>
     <string name="press_back_to_exit">Pulsa atrás de nuevo para salir</string>
-    <string name="send_friend_request">Enviar solicitud de Amistad</string>
+    <string name="send_friend_request">Enviar solicitud</string>
     <string name="cancel_request">Cancelar solicitud</string>
     <string name="failed_to_fetch_friends">Fallo al recuperar contactos : %1$s</string>
+    <string name="request_sent_succesfully">Peticion enviada con éxito</string>
+    <string name="failed_to_send_request">Fallo al enviar peticion de amistad: %1$s</string>
+    <string name="request_cancelled_succesfully">Peticion cancelada con exito</string>
+    <string name="failed_to_cancel_request">Fallo al cancelar peticion:  %1$s</string>
+    <string name="Accept">Aceptar</string>
+    <string name="deny">Denegar</string>
+    <string name="failed_to_fetch_friend_requests">Fallo al recuperar solicitudes: %1$s</string>
+    <string name="failed_to_deny_request">Fallo al denegar peticion: %1$s</string>
+    <string name="request_denied_request">Peticion denegada con exito</string>
+    <string name="failed_to_accept_request">Fallo al aceptar peticion: %1$s</string>
+    <string name="failed_to_fetch_chat_list">Fallo al recuperar chats: %1$s</string>
+    <string name="enter_message">Introduzca mensaje</string>
+    <string name="failed_to_send_message">Fallo al enviar mensaje : %1$s</string>
+    <string name="message_sent_successfully">Mensaje enviado con exito</string>
 </resources>

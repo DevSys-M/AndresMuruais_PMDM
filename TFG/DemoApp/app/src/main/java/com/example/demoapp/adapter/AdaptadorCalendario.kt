@@ -1,5 +1,3 @@
-package com.example.demoapp.adapter
-
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +5,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapp.R
-import com.example.demoapp.dialog.AddEventDialog
-import com.example.demoapp.dialog.EventDetailDialog
 
-class AdaptadorCalendario(private val eventos: Map<Int, List<String>>) :
-    RecyclerView.Adapter<AdaptadorCalendario.ViewHolder>() {
+class AdaptadorCalendario(
+    private val eventos: Map<Int, List<String>>,
+    private val onDayClickListener: OnDayClickListener
+) : RecyclerView.Adapter<AdaptadorCalendario.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -20,36 +18,37 @@ class AdaptadorCalendario(private val eventos: Map<Int, List<String>>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val dia = position + 1
-        val eventosDia = eventos[dia]
+        val day = position + 1
+        val eventsForDay = eventos[day] ?: emptyList()
 
-        holder.tvDia.text = dia.toString()
+        holder.tvDay.text = day.toString()
 
-        if (eventosDia.isNullOrEmpty()) {
-            holder.tvDia.setBackgroundColor(Color.WHITE)
+        if (eventsForDay.isNotEmpty()) {
+            holder.itemView.setBackgroundColor(Color.YELLOW)
         } else {
-            holder.tvDia.setBackgroundColor(Color.YELLOW)
+            holder.itemView.setBackgroundColor(Color.WHITE)
         }
 
         holder.itemView.setOnClickListener {
-            // Mostrar eventos del día en un diálogo de detalle
-            val eventDetailDialog = EventDetailDialog(holder.itemView.context, eventosDia)
-            eventDetailDialog.show()
+            onDayClickListener.onDayClick(day, eventsForDay)
         }
 
         holder.itemView.setOnLongClickListener {
-            // Mostrar diálogo para crear un evento en el día
-            val addEventDialog = AddEventDialog(holder.itemView.context, dia)
-            addEventDialog.show()
+            onDayClickListener.onDayLongClick(day)
             true
         }
     }
 
     override fun getItemCount(): Int {
-        return 31 // Actualiza esto con el número de días del mes actual
+        return 31 // Ajusta este valor según el número de días del mes
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvDia: TextView = itemView.findViewById(R.id.tvDia)
+        val tvDay: TextView = itemView.findViewById(R.id.tvDia)
+    }
+
+    interface OnDayClickListener {
+        fun onDayClick(day: Int, events: List<String>)
+        fun onDayLongClick(day: Int)
     }
 }

@@ -12,5 +12,6 @@
     <color name="colorAccent">#E3D807</color>
     <color name="red">#e91d63</color>
     <color name="gray">#A2A2A2</color>
+    <color name="linkColor">#82B1FF</color>
 
 </resources>

@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retapp.R
+import com.example.retapp.common.Constants
 import com.example.retapp.common.NodeNames
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -20,12 +22,16 @@ class FindFriendsFragment : Fragment() {
     private lateinit var rvFindFriends: RecyclerView
     private lateinit var findFriendAdapter: FindFriendAdapter
     // Lista para hacer fetch del Firebase
-    private lateinit var findFriendModelList: List<FindFriendModel>
+    private lateinit var findFriendModelList: MutableList<FindFriendModel>
     // El Textview que al principio dice "Aquí aparecerá la lista..."
     private lateinit var tvEmptyFriendsList: TextView
 
+
+
     // dbref para sacar la lista de usuarios
     private lateinit var databaseReference: DatabaseReference
+    // ref de peticiones de amistad
+    private lateinit var databaseReferenceFriendRequests: DatabaseReference
     private lateinit var currentUser: FirebaseUser
 
     private lateinit var progressBar: View
@@ -47,9 +53,9 @@ class FindFriendsFragment : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         tvEmptyFriendsList = view.findViewById(R.id.tvEmptyFriendsList)
         // inicializar lay. del recycler
-        rvFindFriends.layoutManager = LinearLayoutManager(requireActivity())
+        rvFindFriends.layoutManager = LinearLayoutManager(activity)
         // inicializar lista
-        findFriendModelList = ArrayList() // <FriendModel..?>
+        findFriendModelList = mutableListOf() // <FriendModel..?>
         // inicializar adapter
         findFriendAdapter = FindFriendAdapter(requireActivity(), findFriendModelList)
         // darle recyclerView al adapter
@@ -57,8 +63,11 @@ class FindFriendsFragment : Fragment() {
 
         // sacar todos los usuarios
         var Nodes: NodeNames = NodeNames()
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(Nodes.USERS)
+        databaseReference = FirebaseDatabase.getInstance().reference.child(Nodes.USERS)
         currentUser = FirebaseAuth.getInstance().currentUser!!
+
+        // sacar peticiones de amistad para el usuario actual
+        databaseReferenceFriendRequests = FirebaseDatabase.getInstance().getReference().child(Nodes.FRIEND_REQUESTS).child(currentUser.uid)
 
         // Sacar el textView de primeras. Si hay datos en la dbRef se esconderá
         tvEmptyFriendsList.visibility = View.VISIBLE
@@ -68,22 +77,52 @@ class FindFriendsFragment : Fragment() {
         var query: Query = databaseReference.orderByChild(Nodes.NAME)
         query.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                (findFriendModelList as ArrayList<FindFriendModel>).clear()
-                for (ds: DataSnapshot in snapshot.children) {
+                (findFriendModelList as MutableList<FindFriendModel>).clear()
+                for (ds in snapshot.children) {
                     var userId: String = ds.key!!
 
                     // excluir al propio usuario de la lista de peticiones de contactos ( no se puede agregar a si mismo)
-                    if (userId.equals(currentUser.uid)) {
-                        return
+                    if (userId == currentUser.uid) {
+                        continue
                     }
 
                     // si el nombre no es nulo
                     if (ds.child(Nodes.NAME).value != null) {
-                        var fullName: String = ds.child(Nodes.NAME).value.toString()
-                        var photoName: String = ds.child(Nodes.PHOTO).value.toString()
+                        val fullName: String = ds.child(Nodes.NAME).value.toString()
+                        val photoName: String = "images/"+userId+".jpg" //ds.child(Nodes.PHOTO).value.toString()
 
-                        (findFriendModelList as ArrayList<FindFriendModel>).add(FindFriendModel(fullName,photoName, userId, false))
-                        findFriendAdapter.notifyDataSetChanged()
+                        // escuchar un solo registro para las peticiones existentes
+                                                        // el usuario al que envío o del que recibo la request
+                        databaseReferenceFriendRequests.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                var constants: Constants = Constants()
+                                // si hay registro en nodo friend requests
+                                if (snapshot.exists()) {
+                                    // ver si la request es sent o received
+                                    var requestType: String = snapshot.child(Nodes.REQUEST_TYPE).value.toString()
+                                    if (requestType.equals(constants.REQUEST_STATUS_SENT)) {                            // evitar que se reinicie el botón de request al salir de la app
+                                        (findFriendModelList as ArrayList<FindFriendModel>).add(FindFriendModel(fullName,photoName, userId, true))
+                                        findFriendAdapter.notifyDataSetChanged()
+
+                                    }
+                                }
+                                else {
+                                    // el registro no existe, requestsent = false -> boton enviar solicitud visible
+                                    (findFriendModelList as ArrayList<FindFriendModel>).add(FindFriendModel(fullName,photoName, userId, false))
+                                    findFriendAdapter.notifyDataSetChanged()
+
+                                }
+
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+
+                                progressBar.visibility = View.GONE
+                            }
+
+
+                        })
+
 
                         // si hay datos, esconder el tv
                         tvEmptyFriendsList.visibility = View.GONE

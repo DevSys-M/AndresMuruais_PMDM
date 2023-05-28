@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <include
         layout="@layout/custom_progressbar"
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/red"
                 android:textStyle="bold"
                 tools:text="User Name" />
 
@@ -47,13 +49,14 @@
                 android:id="@+id/btnSendRequest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="@string/send_friend_request" />
 
             <Button
                 android:id="@+id/btnCancelRequest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/red"
+                android:backgroundTint="@color/red"
                 android:text="@string/cancel_request"
                 android:visibility="gone"
                 tools:visibility="visible" />
