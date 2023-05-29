@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CalendarApp</string>
+    <string name="dialog_add_event_positive_button">Add</string>
+    <string name="dialog_add_event_negative_button">Cancel</string>
+    <string name="dialog_event_detail_positive_button">OK</string>
+    <string name="dialog_add_event_title">Add Event</string>
+    <string name="no_events_for_day">No events for this day</string>
 </resources>

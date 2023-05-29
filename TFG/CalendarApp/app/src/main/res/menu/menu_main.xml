@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <item
+        android:id="@+id/menu_previous_month"
+        android:title="Mes anterior"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_next_month"
+        android:title="Mes siguiente"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_months"
-        android:title="Months"
-        app:showAsAction="always" />
-
+        android:title="Meses"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_weeks"
-        android:title="Weeks"
-        app:showAsAction="always" />
-
+        android:title="Semanas"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_days"
-        android:title="Days"
-        app:showAsAction="always" />
+        android:title="Días"
+        app:showAsAction="never" />
 </menu>
