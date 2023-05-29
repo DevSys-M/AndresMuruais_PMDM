@@ -20,7 +20,7 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-class MainActivity : AppCompatActivity() {
+class GeolocationActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var btnAddMarker: Button
     private lateinit var btnRemoveMarkers: Button
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_geolocation)
 
         btnAddMarker = findViewById(R.id.btnAddMarker)
         btnRemoveMarkers = findViewById(R.id.btnRemoveMarkers)
