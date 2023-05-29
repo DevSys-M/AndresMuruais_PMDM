@@ -10,7 +10,34 @@
 
     <org.osmdroid.views.MapView
         android:id="@+id/mapView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btnAddMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:text="Agregar Marcador" />
+
+    <Button
+        android:id="@+id/btnRemoveMarkers"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Quitar Marcadores" />
+
+</LinearLayout>
+    <Button
+        android:id="@+id/btnMoveToLocation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Mi Ubicación"/>
+
 
 </LinearLayout>
