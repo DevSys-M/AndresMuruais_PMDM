@@ -5,19 +5,13 @@
         android:title="Mes anterior"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menu_months"
+        android:title="Mese Actual"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_next_month"
         android:title="Mes siguiente"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_months"
-        android:title="Meses"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_weeks"
-        android:title="Semanas"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_days"
-        android:title="Días"
-        app:showAsAction="never" />
+
+
 </menu>

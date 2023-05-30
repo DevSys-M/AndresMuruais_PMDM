@@ -1,16 +1,15 @@
 package com.example.calendarapp
 
-import android.icu.text.SimpleDateFormat
-
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
@@ -20,6 +19,8 @@ class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
     private lateinit var tvMonthYear: TextView
 
     private var viewMode = ViewMode.MONTHS
+
+    private val eventMap = mutableMapOf<Int, MutableList<String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         val formattedDate = dateFormat.format(calendar.time)
         tvMonthYear.text = formattedDate
+
+        updateEventIndicators()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,20 +56,12 @@ class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
                 showPreviousMonth()
                 true
             }
-            R.id.menu_next_month -> {
-                showNextMonth()
-                true
-            }
             R.id.menu_months -> {
                 setViewMode(ViewMode.MONTHS)
                 true
             }
-            R.id.menu_weeks -> {
-                setViewMode(ViewMode.WEEKS)
-                true
-            }
-            R.id.menu_days -> {
-                setViewMode(ViewMode.DAYS)
+            R.id.menu_next_month -> {
+                showNextMonth()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -74,15 +69,50 @@ class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
     }
 
     override fun onDayClick(day: Int) {
-            val dialog = DialogoEventDetail.newInstance(day, emptyList())
+        if (viewMode == ViewMode.MONTHS) {
+            val dialog = DialogoEventDetail.newInstance(day, eventMap[day] ?: emptyList())
             dialog.show(supportFragmentManager, "EventDetailDialog")
+        } else {
+            val dialog = DialogoAddEvent.newInstance(day)
+            dialog.setOnAddEventListener { event ->
+                addEvent(day, event)
+            }
+            dialog.show(supportFragmentManager, "AddEventDialog")
+        }
     }
 
     override fun onDayLongClick(day: Int) {
         val dialog = DialogoAddEvent.newInstance(day)
+        dialog.setOnAddEventListener { event ->
+            addEvent(day, event)
+        }
         dialog.show(supportFragmentManager, "AddEventDialog")
     }
 
+    private fun updateEventIndicators() {
+        val currentList = calendarAdapter.currentList
+        val itemCount = calendarAdapter.itemCount
+
+        for (i in 0 until itemCount) {
+            val day = currentList[i].toIntOrNull()
+            val hasEvents = day != null && eventMap.containsKey(day)
+
+            val viewHolder =
+                recyclerView.findViewHolderForAdapterPosition(i) as? CalendarAdapter.ViewHolder
+
+            viewHolder?.dayTextView?.setBackgroundResource(
+                if (hasEvents) R.drawable.background_yellow_circle else 0
+            )
+        }
+    }
+
+
+    private fun addEvent(day: Int, event: String) {
+        val eventList = eventMap.getOrDefault(day, mutableListOf())
+        eventList.add(event)
+        eventMap[day] = eventList
+        updateEventIndicators()
+    }
 
 
     private fun showPreviousMonth() {
@@ -119,8 +149,6 @@ class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
 
         val list = when (mode) {
             ViewMode.MONTHS -> getMonthList(currentYear, currentMonth)
-            ViewMode.WEEKS -> getWeekList(currentYear, currentMonth)
-            ViewMode.DAYS -> getDayList(currentYear, currentMonth)
         }
 
         calendarAdapter.updateList(list)
@@ -146,48 +174,7 @@ class MainActivity : AppCompatActivity(), CalendarAdapter.OnDayClickListener {
         return monthList
     }
 
-    private fun getWeekList(year: Int, month: Int): List<String> {
-        val weekList = mutableListOf<String>()
-
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, 1)
-
-        val firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-        val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        var startDay = 1
-        var endDay = 7 - firstDayOfWeek + 1
-
-        while (startDay <= maxDay) {
-            val weekRange = "$startDay-$endDay"
-            weekList.add(weekRange)
-
-            startDay = endDay + 1
-            endDay = startDay + 6
-
-            if (endDay > maxDay)
-                endDay = maxDay
-        }
-
-        return weekList
-    }
-
-    private fun getDayList(year: Int, month: Int): List<String> {
-        val dayList = mutableListOf<String>()
-
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, 1)
-
-        val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        for (i in 1..maxDay) {
-            dayList.add(i.toString())
-        }
-
-        return dayList
-    }
-
     private enum class ViewMode {
-        MONTHS, WEEKS, DAYS
+        MONTHS
     }
 }

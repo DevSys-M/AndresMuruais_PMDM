@@ -8,6 +8,10 @@ import androidx.fragment.app.DialogFragment
 
 class DialogoAddEvent : DialogFragment() {
 
+    private var onAddEventListener: ((event: String) -> Unit)? = null
+
+    private lateinit var etEventName: EditText
+
     companion object {
         private const val ARG_DAY = "arg_day"
 
@@ -21,7 +25,6 @@ class DialogoAddEvent : DialogFragment() {
         }
     }
 
-    private lateinit var etEventName: EditText
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val day = requireArguments().getInt(ARG_DAY)
@@ -34,7 +37,7 @@ class DialogoAddEvent : DialogFragment() {
             .setView(rootView)
             .setPositiveButton(R.string.dialog_add_event_positive_button) { dialog, _ ->
                 val eventName = etEventName.text.toString()
-                // Aquí puedes realizar alguna acción con el nombre del evento ingresado
+                addEvent(eventName) // Llamar al método addEvent y pasar el nombre del evento
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.dialog_add_event_negative_button) { dialog, _ ->
@@ -42,4 +45,14 @@ class DialogoAddEvent : DialogFragment() {
             }
             .create()
     }
+
+    private fun addEvent(event: String) {
+            onAddEventListener?.invoke(event)
+            dismiss()
+    }
+
+    fun setOnAddEventListener(listener: (event: String) -> Unit) {
+        onAddEventListener = listener
+    }
+
 }

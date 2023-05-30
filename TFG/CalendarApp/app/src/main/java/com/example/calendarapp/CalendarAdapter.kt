@@ -11,58 +11,69 @@ class CalendarAdapter(
     private val onDayClickListener: OnDayClickListener
 ) : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
+    private val eventMap = mutableMapOf<Int, MutableList<String>>()
+    var currentList: List<String> = dataList
+
+    interface OnDayClickListener {
+        fun onDayClick(day: Int)
+        fun onDayLongClick(day: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_calendar_day, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_calendar_day, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val day = dataList[position]
-        holder.bind(day)
+        val day = dataList[position].toIntOrNull()
+        if (day != null) {
+            holder.dayTextView.text = day.toString()
+            holder.itemView.setOnClickListener {
+                onDayClickListener.onDayClick(day)
+            }
+            holder.itemView.setOnLongClickListener {
+                onDayClickListener.onDayLongClick(day)
+                true
+            }
+
+            val hasEvents = eventMap.containsKey(day)
+            holder.dayTextView.visibility = View.VISIBLE
+            holder.dayTextView.setBackgroundResource(
+                if (hasEvents) R.drawable.background_yellow_circle else 0
+            )
+        } else {
+            holder.dayTextView.text = ""
+            holder.dayTextView.setBackgroundResource(0) // Elimina cualquier fondo
+            holder.dayTextView.visibility = View.INVISIBLE
+        }
     }
 
     override fun getItemCount(): Int {
         return dataList.size
     }
 
-    fun updateList(newDataList: List<String>) {
-        dataList = newDataList
+    fun updateCurrentList(newList: List<String>) {
+        currentList = newList
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
-        private val tvDay: TextView = itemView.findViewById(R.id.dayTextView)
-
-        init {
-            itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
-        }
-
-        fun bind(day: String) {
-            tvDay.text = day
-        }
-
-        override fun onClick(view: View) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                val clickedDay = dataList[position].toInt()
-                onDayClickListener.onDayClick(clickedDay)
-            }
-        }
-
-        override fun onLongClick(view: View): Boolean {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                val clickedDay = dataList[position].toInt()
-                onDayClickListener.onDayLongClick(clickedDay)
-                return true
-            }
-            return false
-        }
+    fun updateList(newList: List<String>) {
+        dataList = newList
+        notifyDataSetChanged()
     }
 
-    interface OnDayClickListener {
-        fun onDayClick(day: Int)
-        fun onDayLongClick(day: Int)
+    fun getItemAtPosition(position: Int): String {
+        return dataList[position]
+    }
+
+    fun addEvent(day: Int, event: String) {
+        val eventList = eventMap.getOrPut(day) { mutableListOf() }
+        eventList.add(event)
+        notifyItemChanged(day - 1)
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val dayTextView: TextView = itemView.findViewById(R.id.dayTextView)
     }
 }
